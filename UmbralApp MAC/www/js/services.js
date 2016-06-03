@@ -114,6 +114,9 @@ makeDynamicService = function (webService, webMethod) {
         }]
 }
 
+.factory('RegistroAsistenciaService',['$soap',function($soap){
+    
+}]);
 //makeService = function(module, identifier) {
 //    module.factory(identifier+'-service', ['echo', function(echo) {
 //            return {

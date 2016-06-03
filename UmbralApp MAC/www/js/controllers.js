@@ -592,3 +592,6 @@ angular.module('app.controllers', ['ionic'])
 
     }
 })
+
+
+.controller('RegistroAsistCtrl', function(){})
