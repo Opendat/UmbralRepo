@@ -1,0 +1,53 @@
+<ion-view style="" title="Conectarse">
+    <ion-content class="center" overflow-scroll="false" padding="true" ng-controller="conectarseCtrl" style="background-color: #1565c0;">
+        <form style="" class="list" ng-submit='verificarCuenta()'>
+            <img ng-src="img/logo.png" style="margin-left: auto; margin-right: auto; display: block;" />
+            <ion-list style="">
+                <label style="background-color: #1565c0; border: none; border-bottom: solid #FFFFFF;" class="item item-input">
+                    <span class="input-label" style="color: #FFFFFF">Cuenta Usuario</span>
+                    <input id="idCuenta" style="color: #FFFFFF" placeholder="" type="text" ng-model="idCuenta" class="toUpper">
+                </label>
+            </ion-list>
+            <a id="idVerificarCuenta" style="" class="button button-positive button-block " ng-click="verificarCuenta()">Siguiente</a>
+            <a style="color: #FFFFFF;" class="button button-positive button-clear button-block  icon-left ion-android-share" onclick="window.open('http://10.0.167.27/MRAT_UQA/', '_system', 'location=yes'); return false;" href="#">Solicita una Cuenta</a>
+
+            <!--
+            <h3>
+                Debugging
+            </h3>
+            <br>
+            <p>
+                <b>UUID :</b> {{UUID}}
+                <br>
+                <b>newInstanceID :</b>{{newInstanceID}}
+                <br>
+                <b>mensaje :</b> {{mensaje}}
+                <br>
+                <b>fechaEnvio :</b> {{fechaEnvio}}
+                <br>
+                <b>notifyCuenta :</b> {{notifyCuenta}}
+                <br>
+                <b>foreground :</b> {{foreground}}
+                <br>
+                <b>coldstart :</b> {{coldstart}}
+                <br>
+                <b>idCuenta :</b> {{idCuenta}}
+                <br>
+                <b>idPersona :</b> {{idPersona}}
+                <br>
+                <b>estadoCuenta :</b> {{estadoCuenta}}
+                <br>
+                <b>password :</b> {{password}}
+                <br>
+                <b>newPass :</b> {{newPass}}
+                <br>
+                <b>oldPass :</b> {{oldPass}}
+                <br>
+                <b>confirmPass :</b> {{confirmPass}}
+            </p>
+-->
+
+        </form>
+    </ion-content>
+
+</ion-view>

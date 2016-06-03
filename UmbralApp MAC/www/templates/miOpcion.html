@@ -1,0 +1,25 @@
+<ion-view cache-view="false" style="" title="Mi Opción" ng-controller="miOpcionCtrl">
+
+    <ion-header-bar class='bar-positive' align-title='center'>
+        <div class='buttons'>
+            <button class="button icon button-clear ion-android-sync" ng-click="ActualizarView()"></button>
+        </div>
+        <h1 class="title">{{title}}</h1>
+        <div class='buttons'>
+            <button class='button icon button-clear ion-navicon-round' ng-click='toggleRight()'></button>
+        </div>
+    </ion-header-bar>
+
+    <ion-content class="padding has-header" overflow-scroll="true" padding="true" style="background-color: #e3f2fd">
+        <div class="card">
+            <div class="item item-text-wrap">
+                <div ng-controller="miOpcionCtrl">
+                    <p ng-bind-html="content"></p>
+                </div>
+            </div>
+        </div>
+
+
+    </ion-content>
+
+</ion-view>

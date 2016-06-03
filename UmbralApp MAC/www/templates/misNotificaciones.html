@@ -1,0 +1,101 @@
+<ion-view cache-view="false" style="" title="Mis Notificaciones" ng-controller="misNotificacionesCtrl">
+  
+    <ion-side-menus>
+        <ion-side-menu-content>
+            <ion-header-bar class='bar-positive' align-title='center'>
+                <div class='buttons'>
+                    <button class="button icon button-clear ion-android-sync" ng-click="ActualizarView()"></button>
+                </div>
+                <h1 class="title">Mis Notificaciones</h1>
+                <div class='buttons'>
+                    <button class='button icon button-clear ion-navicon-round' ng-click='toggleRight()'></button>
+                </div>
+            </ion-header-bar>
+            <ion-content class="padding has-header" overflow-scroll="true" padding="true" style="background-color: #e3f2fd">
+                <div id="'notificacion-{{$index}}'" ng-repeat="notify in notifications" style="" ng-class="cantidadNotificacionesRecientes > $index ? 'list card animated shake': 'list card fade'">
+                    <div class="item item-divider" style="background-color: #2196f3; color: #FFFFFF" ng-click="openPopover($event,notify.U027425,notify.U027428)">
+                        {{notify.U027425}}
+                        <!--                <i ng-class="checkEstado(notify.U027427)"></i>-->
+                    </div>
+                    <div class="item item-text-wrap">
+                        <div style="">
+                            <p>
+                                {{notify.U027424}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <ion-infinite-scroll ng-if="!noMoreItemsAvailable" on-infinite="loadMore()" distance="5%"></ion-infinite-scroll>
+
+            </ion-content>
+        </ion-side-menu-content>
+
+        <ion-side-menu side='right'>
+            <ion-content>
+                <header class="bar bar-header bar-stable">
+                    <h1 class="title"><b>{{nombreApellido}}</b></h1>
+                </header>
+
+                <div class='has-header'>
+                    <ion-list>
+                        <ion-item nav-clear menu-close href="#">
+                            ---------------
+                        </ion-item>
+
+                        <div ng-repeat="item in items">
+                            <ion-item class="item-stable" ng-click="toggleOption(item)" ng-class="{active: isOptionShown(item)}">
+                                <i class="icon" ng-class="isOptionShown(item) ? 'ion-minus' : 'ion-plus'"></i> &nbsp; {{item.precedente}}
+                            </ion-item>
+                            <ion-item class="item-accordion" ng-repeat="subitem in item.subitems" ng-show="isOptionShown(item)">
+
+                                <a class="item" href="" target="_blank" ng-click="ItemMenu(subitem.webservice)" style="border:0; padding: 1px 1px 1px 1px">{{subitem.nombre}}</a>
+                            </ion-item>
+                        </div>
+                        <ion-item class="item-stable" ng-click="CerrarSesion()" ng-class="active">
+                            &nbsp; &nbsp; &nbsp; Cerrar Sesión
+                        </ion-item>
+                      
+                    </ion-list>
+                </div>
+            </ion-content>
+        </ion-side-menu>
+    </ion-side-menus>
+
+    <script id="templates/popover.html" type="text/ng-template">
+        <ion-popover-view>
+            <ion-header-bar align-title="center">
+                <h1 class="title" style="font-size:16px">
+                    <div ng-controller="misNotificacionesCtrl">
+                        <p ng-bind-html="title"></p>
+                    </div></h1>
+            </ion-header-bar>
+            <ion-content>
+                <div class="popover-inner-content">
+                    <div ng-controller="misNotificacionesCtrl">
+                        <p ng-bind-html="content"></p>
+                    </div>
+                </div>
+            </ion-content>
+        </ion-popover-view>
+    </script>
+
+    <!--
+    <script id="templates/popover.html" type="text/ng-template">
+        <ion-popover-view style="height: 120px">
+            <ion-content>
+                <div class="list">
+                    <a class="item" href="" target="_blank">
+                        <b>{{nombreApellido}}</b>
+                    </a>
+                    <a class="item" href="" target="_blank" ng-click="CerrarSesion()">
+              Cerrar Sesión
+            </a>
+                </div>
+            </ion-content>
+        </ion-popover-view>
+    </script>
+-->
+
+
+</ion-view>
