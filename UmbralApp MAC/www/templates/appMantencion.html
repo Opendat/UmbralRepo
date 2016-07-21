@@ -1,0 +1,32 @@
+<ion-view cache-view="false" style="" title="appMantencion" ng-controller="appMantencionCtrl">
+    <ion-side-menus>
+        <ion-side-menu-content>
+            <ion-header-bar class='bar-positive' align-title='center'>
+                <div class='buttons'>
+<!--                    <button class="button icon button-clear ion-android-sync" ng-click="ActualizarView()"></button>-->
+                    <button class="button icon button-clear ion-home" ng-click="GoHome()"></button>
+                </div>
+                <h1 class="title">{{title}}</h1>
+                <div class='buttons'>
+                    <button class='button icon button-clear ion-navicon-round' ng-click='toggleRight()'></button>
+                </div>
+            </ion-header-bar>
+
+            <ion-content class="padding has-header" overflow-scroll="true" padding="true" style="background-color: #e3f2fd">
+                <div class="card text-center">
+                    <i class="icon ion-ios-cog-outline larger"></i>
+                    <div class="item item-text-wrap">
+                        {{content}}
+                    </div>
+                </div>
+
+
+            </ion-content>
+        </ion-side-menu-content>
+
+        <ng-include src="'templates/menuOpciones.html'"></ng-include>
+
+
+    </ion-side-menus>
+
+</ion-view>

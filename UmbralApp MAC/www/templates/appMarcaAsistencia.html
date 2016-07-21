@@ -1,32 +1,23 @@
-<ion-view cache-view="false" style="" title="Registro Asistencia" ng-controller="misRegistrosCtrl">
+<ion-view cache-view="false" style="" title="appMarcaAsistencia" ng-controller="appMarcaAsistenciaCtrl">
 
     <ion-side-menus>
         <ion-side-menu-content>
             <ion-header-bar class='bar-positive' align-title='center'>
-
-                <h1 class="title">Registro de Asistencia</h1>
-
+                <div class='buttons'>
+                    <button class="button icon button-clear ion-android-sync" ng-click="ActualizarView()"></button>
+                    <button class="button icon button-clear ion-home" ng-click="GoHome()"></button>
+                </div>
+                <h1 class="title">{{title}}</h1>
+                <div class='buttons'>
+                    <button class='button icon button-clear ion-navicon-round' ng-click='toggleRight()'></button>
+                </div>
             </ion-header-bar>
             <ion-content class="has-header" style="background-color: #e3f2fd">
-                <div ng-if="showIni" class="list">
-                    <label class="item item-input">
-                        <span class="input-label">Username</span>
-                        <input id="idCuenta" type="text" ng-model="idCuenta">
-                    </label>
-                    <label class="item item-input">
-                        <span class="input-label">Password</span>
-                        <input id="pass" type="password" ng-model="pass">
-                    </label>
-                    <label>
-                        <button class="button button-block button-positive" ng-click="inicioCuenta(idCuenta, pass)">Conectar</button>
-                    </label>
-                </div>
-
                 <div ng-if="MoreRV">
                     <p><b>Actualmente tienes mas de una regla de verificacion.</b></p>
                     <p>Seleccione un convenio y jornada</p>
 
-                    <div class="list ">
+                    <div class="list">
                         <label class="item item-select item-input">
                             <div class="input-label">
                                 Convenio
@@ -53,7 +44,7 @@
                     </div>
                 </div>
 
-                <div ng-if="!MoreRV && !showIni">
+                <div ng-if="!MoreRV">
                     <p><b>Convenio: </b>{{VERIFICACIONES[0].DESCRIPCION_CONTRATO}}</p>
                     <br>
                     <p><b>Jornada: </b>{{VERIFICACIONES[0].JORNADA}}</p>
@@ -69,6 +60,8 @@
             </ion-content>
 
         </ion-side-menu-content>
+
+        <ng-include src="'templates/menuOpciones.html'"></ng-include>
 
     </ion-side-menus>
 

@@ -5,33 +5,36 @@ angular.module('app.services', [])
 .factory("LoginService", ['$soap', function ($soap) {
     //var base_url = "http://10.0.2.2:8273/U02709C.asmx";
     var base_url = "http://10.0.167.27/MRAT_UQA/U02709C.asmx";
+    //var base_url = "http://www.opendat.cl/umbralapps/U02709C.asmx";
+
+    //$soap.setCredentials("umbral", "1234");
 
     return {
 
         // verifica la cuenta del usuario
         VerificarCuenta: function (idCuenta) {
-            return $soap.post(base_url, "VerificarCuenta", {
+            return $soap.post(base_url, "U02709D", {
                 idCuenta: idCuenta
             });
         },
 
         // obtiene el estado de la cuenta ingresada
         ObtenerEstadoCuenta: function (idCuenta) {
-            return $soap.post(base_url, "ObtenerEstadoCuenta", {
+            return $soap.post(base_url, "U02709E", {
                 idCuenta: idCuenta
             });
         },
 
         // verifica la clave del usuario que se está autenticando
         VerificarClave: function (password, idCuenta) {
-            return $soap.post(base_url, "VerificarClave", {
+            return $soap.post(base_url, "U0270A1", {
                 contraseña: password
                 , idCuenta: idCuenta
             });
         },
 
         ActivarCuenta: function (idCuenta, newPass) {
-            return $soap.post(base_url, "ActualizarClaveCuentaCreada", {
+            return $soap.post(base_url, "U0270A2", {
                 idCuenta: idCuenta
                 , newPass: newPass
             });
@@ -43,6 +46,9 @@ angular.module('app.services', [])
 .factory("PushNotificationService", ['$soap', function ($soap) {
     //var base_url = "http://10.0.2.2:8273/U02709C.asmx";
     var base_url = "http://10.0.167.27/MRAT_UQA/U02709C.asmx";
+    //var base_url = "http://www.opendat.cl/umbralapps/U02709C.asmx";
+
+    //$soap.setCredentials("umbral", "1234");
 
     return {
 
@@ -50,7 +56,7 @@ angular.module('app.services', [])
         // si existe verfica que sea la misma instanceID, si no es la misma, actualiza la instanceID y
         // si es la misma no hace nada.
         BuscarCliente: function (idPersona, UUID, newInstanceID, idCuenta) {
-            return $soap.post(base_url, "BuscarCliente", {
+            return $soap.post(base_url, "U02709F", {
                 idPersona: idPersona
                 , UUID: UUID
                 , newInstanceID: newInstanceID
@@ -59,7 +65,7 @@ angular.module('app.services', [])
         },
 
         ActualizarFecha: function (UUID, idCuenta, fechaCreado, estadoNotificacion) {
-            return $soap.post(base_url, "ActualizarFechaNotificacion", {
+            return $soap.post(base_url, "U0270A0", {
                 UUID: UUID
                 , idCuenta: idCuenta
                 , fechaCreado: fechaCreado
@@ -68,14 +74,14 @@ angular.module('app.services', [])
         },
 
         GetNotifications: function (idCuenta, lastReg) {
-            return $soap.post(base_url, "ObtenerNotificaciones", {
+            return $soap.post(base_url, "U0270A5", {
                 idCuenta: idCuenta
                 , lastReg: lastReg
             });
         },
 
         GetNombreApellido: function (idCuenta) {
-            return $soap.post(base_url, "ObtenerNombreApellidoCuenta", {
+            return $soap.post(base_url, "U0270A6", {
                 idCuenta: idCuenta
             });
         }
@@ -88,17 +94,214 @@ angular.module('app.services', [])
 .factory('MenuDinamicoService', ['$soap', function ($soap) {
     //var base_url = "http://10.0.2.2:8273/U0281CC.asmx";
     var base_url = "http://10.0.167.27/MRAT_UQA/U0281CC.asmx";
+    //var base_url = "http://www.opendat.cl/umbralapps/U0281CC.asmx";
+
+    //$soap.setCredentials("umbral", "1234");
 
     return {
         GetMenuDinamico: function (idCuenta) {
-            return $soap.post(base_url, "MenuOpciones", {
+            return $soap.post(base_url, "U0281CD", {
                 idCuenta: idCuenta
             });
         }
     }
-}]);
+}])
 
-// funcion que permite ejecutar un webservice dinamico (parametros de url y webmethod)
+.factory("RegistroAsistenciaService",['$soap',function($soap) {
+    
+    var base_url = "http://10.0.167.27/MRAT_UQA/U028424.asmx";
+    return {
+        
+        //Funcion que busca las reglas de verificacion asignadas a la persona segun su ID de cuenta.
+        //RETURN: Lista con objetos 'ReglasVerificacion'
+        GetReglaVerificacion: function(idCuenta){
+            return $soap.post(base_url, "U028425", {
+               idCuenta: idCuenta
+            });
+        },
+        
+        //obtengo la linea de tiempo actual para el despliegue en pantalla.
+        getLineaTiempo: function(idVerificacion, idPersona){
+            return $soap.post(base_url, "U028426", {
+                idVerificacion: idVerificacion,
+                idPersona: idPersona
+            });
+        },
+        
+        //Envio regitro de marcaje.
+        IngresoMarcaje: function(idAccount, typeEvent, idVerificacion, idPersona, geoLoc){
+            return $soap.post(base_url, "U028427", {
+                _idCard:  idAccount,
+                _typeEvent: typeEvent,
+                _idVerificacion: idVerificacion,
+                _idPersona: idPersona,
+                _loc_geo: geoLoc
+            });
+        },
+        
+        //Obtengo el resultado de la verificacion de la persona segun codigo QR.
+        VerificarQR: function(dataQR, idPersona){
+            return $soap.post(base_url, "U028428", {
+                codigoQR: dataQR,
+                idPersona: idPersona
+            });
+        },
+        
+        //Obtengo la sugerencia de evento segun la hora actual.
+        Sugerencia: function(verificacion, idPersona){
+            return $soap.post(base_url, "U028429", {
+                idVerificacion: verificacion,
+                idPersona: idPersona
+            });
+        }
+        
+    }
+}])
+
+
+
+.factory('MenuOpcionesFunction', function () {
+    var root = {};
+    root.MenuOpciones = function ($scope, $state, $ionicSideMenuDelegate, MenuDinamicoService, PushNotificationService, idCuenta, $ionicLoading) {
+
+
+        //====================================================================================
+        // carga menu dinamico lateral derecho desde el webservice correspondiente
+        MenuDinamicoService.GetMenuDinamico(idCuenta).then(function (opcionesArray) {
+
+            if (opcionesArray.length > 0) {
+                // algoritmo para crear menu dinamico, de menu y submenu
+                $scope.items = [];
+
+                var i = 0;
+                var j = 0;
+                var k = 0;
+                var l = 0;
+                while (i < opcionesArray.length) {
+                    $scope.subitems = [];
+                    l = 0;
+
+                    $scope.items[k] = {
+                        precedente: opcionesArray[i].PRECEDENTE
+                        , subitems: $scope.subitems
+                    };
+
+
+                    while (j < opcionesArray.length && opcionesArray[i].PRECEDENTE == opcionesArray[j].PRECEDENTE) {
+
+                        $scope.subitems[l] = {
+                            nombre: opcionesArray[j].ID_OPCION
+                            , webservice: opcionesArray[j].U027CBE
+                            , webmethod: opcionesArray[j].U027CBF
+                            , naturaleza: opcionesArray[j].U027CBC
+                            , estado: opcionesArray[j].U027CBD
+                        };
+                        j++;
+                        l++;
+                    }
+                    i = j;
+
+                    k++;
+                }
+
+            }
+
+            $ionicLoading.hide();
+        });
+
+
+        // permite mostrar y ocultar items en el menu dinamico derecho
+        $scope.toggleOption = function (option) {
+            if ($scope.isOptionShown(option)) {
+                $scope.shownOption = null;
+            } else {
+                $scope.shownOption = option;
+            }
+        };
+        $scope.isOptionShown = function (option) {
+            return $scope.shownOption === option;
+        };
+        //============================================================================================================
+
+        // carga el nombre real del usuario
+        PushNotificationService.GetNombreApellido($scope.idCuenta)
+            .then(function (response) {
+                $scope.nombreApellido = response;
+            });
+
+        $scope.ItemMenu = function (webservice, webmethod, title, naturaleza, estado) {
+
+
+            // si estado esta en Mantencion go to appMantencion
+            if (estado && estado == 'Z0B9DE7' && title) {
+                $state.go('appMantencion', {
+                    idCuenta: $scope.idCuenta
+                    , title: title
+                });
+
+            } else {
+                // devuelve true si no es null, undefined, NaN, empty string (""),0, false
+                if (webservice && webmethod && title && naturaleza && estado) {
+
+                    //$ionicSideMenuDelegate.toggleRight();
+
+                    switch (naturaleza) {
+                        //Formulario
+                    case 'Z0B9E04':
+                        $state.go('appFormulario', {
+                            idCuenta: $scope.idCuenta
+                            , webService: webservice
+                            , webMethod: webmethod
+                            , title: title
+                        });
+                        break;
+                        //Panel
+                    case 'Z0B9E05':
+                        $state.go('appPanel', {
+                            idCuenta: $scope.idCuenta
+                            , webService: webservice
+                            , webMethod: webmethod
+                            , title: title
+                        });
+                        break;
+                        // Plantilla
+                    case 'Z0B9E06':
+                        $state.go('appPlantilla', {
+                            idCuenta: $scope.idCuenta
+                            , webService: webservice
+                            , webMethod: webmethod
+                            , title: title
+                        });
+                        break;
+
+                        //Marca Notificación
+                    case 'Z0B9E7A':
+                        $state.go('appMarcaAsistencia', {
+                            idCuenta: $scope.idCuenta
+                            , webService: webservice
+                            , webMethod: webmethod
+                            , title: title
+                        });
+                        break;
+                        //Notificacion 
+                    case 'Z0B9E07':
+                        break;
+                    default:
+
+
+                    }
+
+
+                }
+            }
+
+
+        }
+    };
+    return root;
+});
+
+// funcion que permite ejecutar un webservice dinamico enviando como parametro {idCuenta}
 makeDynamicService = function (webService, webMethod) {
     return ['$soap', function ($soap) {
 
@@ -112,30 +315,56 @@ makeDynamicService = function (webService, webMethod) {
             }
         }
         }]
-}
+};
 
-.factory('RegistroAsistenciaService',['$soap',function($soap){
-    
-}]);
-//makeService = function(module, identifier) {
-//    module.factory(identifier+'-service', ['echo', function(echo) {
-//            return {
-//                run: function(msg) {
-//                    return echo.echo(identifier + ": " + msg);
-//                }
-//            };
-//        }]);
-//    };
+// funcion que permite ejecutar un webservice dinamico enviando como parametros {idCuenta y idOpcion}
+makeDynamicService2 = function (webService, webMethod) {
+    return ['$soap', function ($soap) {
 
-//.factory('timeoutHttpIntercept', [function ($rootScope, $q) {
-//    return {
-//        'request': function (config) {
-//            config.timeout = 5000;
-//            return config;
-//        }
-//    };
-// }])
-//
-//.config(['$httpProvider', function ($httpProvider) {
-//    $httpProvider.interceptors.push('timeoutHttpIntercept');
-//}]);
+        var base_url = webService;
+
+        return {
+            run: function (idCuenta, idOpcion) {
+                return $soap.post(base_url, webMethod, {
+                    idCuenta: idCuenta
+                    , idOpcion: idOpcion
+                });
+            }
+        }
+        }]
+};
+
+// funcion que permite ejecutar un webservice dinamico enviando como parametros {idCuenta y length}
+makeDynamicService3 = function (webService, webMethod) {
+    return ['$soap', function ($soap) {
+
+        var base_url = webService;
+
+        return {
+            run: function (idCuenta, length) {
+                return $soap.post(base_url, webMethod, {
+                    idCuenta: idCuenta
+                    , length: length
+                });
+            }
+        }
+        }]
+};
+
+
+// funcion que permite ejecutar un webservice dinamico enviando como parametros {idCuenta y fecha}
+makeDynamicService4 = function (webService, webMethod) {
+    return ['$soap', function ($soap) {
+
+        var base_url = webService;
+
+        return {
+            run: function (idCuenta, fecha) {
+                return $soap.post(base_url, webMethod, {
+                    idCuenta: idCuenta
+                    , fecha: fecha
+                });
+            }
+        }
+        }]
+};

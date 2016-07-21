@@ -1,0 +1,29 @@
+<ion-side-menu side='right' >
+    <ion-content>
+        <header class="bar bar-header bar-stable">
+            <h1 class="title"><b>{{nombreApellido}}</b></h1>
+        </header>
+
+        <div class='has-header'>
+            <ion-list>
+                <ion-item nav-clear menu-close href="#">
+                    ---------------
+                </ion-item>
+
+                <div ng-repeat="item in items">
+                    <ion-item class="item-stable" ng-click="toggleOption(item)" ng-class="{active: isOptionShown(item)}">
+                        <i class="icon" ng-class="isOptionShown(item) ? 'ion-minus' : 'ion-plus'"></i> &nbsp; {{item.precedente}}
+                    </ion-item>
+                    <ion-item class="item-accordion" ng-repeat="subitem in item.subitems" ng-show="isOptionShown(item)">
+
+                        <a class="item" href="" target="_blank" ng-click="ItemMenu(subitem.webservice, subitem.webmethod, subitem.nombre, subitem.naturaleza, subitem.estado)" style="border:0; padding: 1px 1px 1px 1px">{{subitem.nombre}}</a>
+                    </ion-item>
+                </div>
+                <ion-item class="item-stable" ng-click="CerrarSesion()" ng-class="active">
+                    <i class="icon ion-log-out"></i>&nbsp; &nbsp;Cerrar Sesión
+                </ion-item>
+
+            </ion-list>
+        </div>
+    </ion-content>
+</ion-side-menu>
