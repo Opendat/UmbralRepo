@@ -15,9 +15,10 @@
                 <div id="'registro-{{$index}}'" ng-repeat="registro in registros" style="" ng-class="'list card fade'">
                     <div class="item item-divider row" style="background-color: #2196f3; color: #FFFFFF" ng-click="openPopover($event,registro.Fecha_Origen,registro.Fecha_Texto)">
 
-                        <div class="col col-33 col-offset-33">[ver detalle]</div>
-                        <div class="col col-33" style="text-align: right">#{{$index+1}}</div>
+                        <div class="col col-75">{{registro.Fecha_Texto}}</div>
+                        <div class="col" style="text-align: right"><b>QE {{registro.Registros}}</b></div>
                     </div>
+<!--
                     <div class="item item-text-wrap">
                         <div style="">
                             <p>
@@ -27,6 +28,7 @@
                             </p>
                         </div>
                     </div>
+-->
                 </div>
 
                 <ion-infinite-scroll ng-if="!noMoreItemsAvailable" on-infinite="loadMore()" distance="5%"></ion-infinite-scroll>

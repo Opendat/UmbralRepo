@@ -4,8 +4,8 @@ angular.module('app.services', [])
 
 .factory("LoginService", ['$soap', function ($soap) {
     //var base_url = "http://10.0.2.2:8273/U02709C.asmx";
-    var base_url = "http://10.0.167.27/MRAT_UQA/U02709C.asmx";
-    //var base_url = "http://www.opendat.cl/umbralapps/U02709C.asmx";
+    //var base_url = "http://10.0.167.27/MRAT_UQA/U02709C.asmx";
+    var base_url = "http://www.opendat.cl/umbral/U02709C.asmx";
 
     //$soap.setCredentials("umbral", "1234");
 
@@ -45,8 +45,8 @@ angular.module('app.services', [])
 
 .factory("PushNotificationService", ['$soap', function ($soap) {
     //var base_url = "http://10.0.2.2:8273/U02709C.asmx";
-    var base_url = "http://10.0.167.27/MRAT_UQA/U02709C.asmx";
-    //var base_url = "http://www.opendat.cl/umbralapps/U02709C.asmx";
+    //var base_url = "http://10.0.167.27/MRAT_UQA/U02709C.asmx";
+    var base_url = "http://www.opendat.cl/umbral/U02709C.asmx";
 
     //$soap.setCredentials("umbral", "1234");
 
@@ -93,8 +93,8 @@ angular.module('app.services', [])
 
 .factory('MenuDinamicoService', ['$soap', function ($soap) {
     //var base_url = "http://10.0.2.2:8273/U0281CC.asmx";
-    var base_url = "http://10.0.167.27/MRAT_UQA/U0281CC.asmx";
-    //var base_url = "http://www.opendat.cl/umbralapps/U0281CC.asmx";
+    //var base_url = "http://10.0.167.27/MRAT_UQA/U0281CC.asmx";
+    var base_url = "http://www.opendat.cl/umbral/U0281CC.asmx";
 
     //$soap.setCredentials("umbral", "1234");
 
@@ -107,58 +107,149 @@ angular.module('app.services', [])
     }
 }])
 
-.factory("RegistroAsistenciaService",['$soap',function($soap) {
+.factory("RegistroAsistenciaService", ['$soap', function ($soap) {
+
     
-    var base_url = "http://10.0.167.27/MRAT_UQA/U028424.asmx";
+    //var base_url = "http://10.0.167.27/MRAT_UQA/U028424.asmx";
+    var base_url = "http://www.opendat.cl/umbral/U028424.asmx"
     return {
-        
+
         //Funcion que busca las reglas de verificacion asignadas a la persona segun su ID de cuenta.
         //RETURN: Lista con objetos 'ReglasVerificacion'
-        GetReglaVerificacion: function(idCuenta){
+        GetReglaVerificacion: function (idCuenta) {
             return $soap.post(base_url, "U028425", {
-               idCuenta: idCuenta
+                idCuenta: idCuenta
             });
         },
-        
+
         //obtengo la linea de tiempo actual para el despliegue en pantalla.
-        getLineaTiempo: function(idVerificacion, idPersona){
+        getLineaTiempo: function (idVerificacion, idPersona) {
             return $soap.post(base_url, "U028426", {
-                idVerificacion: idVerificacion,
-                idPersona: idPersona
+                idVerificacion: idVerificacion
+                , idPersona: idPersona
             });
         },
-        
+
         //Envio regitro de marcaje.
-        IngresoMarcaje: function(idAccount, typeEvent, idVerificacion, idPersona, geoLoc){
+        IngresoMarcaje: function (idAccount, typeEvent, idVerificacion, idPersona, geoLoc) {
             return $soap.post(base_url, "U028427", {
-                _idCard:  idAccount,
-                _typeEvent: typeEvent,
-                _idVerificacion: idVerificacion,
-                _idPersona: idPersona,
-                _loc_geo: geoLoc
+                _idCard: idAccount
+                , _typeEvent: typeEvent
+                , _idVerificacion: idVerificacion
+                , _idPersona: idPersona
+                , _loc_geo: geoLoc
             });
         },
-        
+
         //Obtengo el resultado de la verificacion de la persona segun codigo QR.
-        VerificarQR: function(dataQR, idPersona){
+        VerificarQR: function (dataQR, idPersona) {
             return $soap.post(base_url, "U028428", {
-                codigoQR: dataQR,
-                idPersona: idPersona
+                codigoQR: dataQR
+                , idPersona: idPersona
             });
         },
-        
+
         //Obtengo la sugerencia de evento segun la hora actual.
-        Sugerencia: function(verificacion, idPersona){
+        Sugerencia: function (verificacion, idPersona) {
             return $soap.post(base_url, "U028429", {
-                idVerificacion: verificacion,
-                idPersona: idPersona
+                idVerificacion: verificacion
+                , idPersona: idPersona
             });
         }
-        
+
     }
 }])
 
 
+.factory('FuncionesGlobales', function () {
+    var root = {};
+
+    root.toogleRight = function ($scope, $state, $ionicSideMenuDelegate, MenuDinamicoService, PushNotificationService, idCuenta, $ionicLoading, MenuOpcionesFunction) {
+
+        $scope.toggleRight = function () {
+            // cargando
+            $ionicLoading.show({
+                template: 'Cargando...'
+            });
+            MenuOpcionesFunction.MenuOpciones($scope, $state, $ionicSideMenuDelegate, MenuDinamicoService, PushNotificationService, idCuenta, $ionicLoading);
+
+            $ionicSideMenuDelegate.toggleRight();
+
+        }
+    };
+    root.cerrarSesion = function ($scope, $ionicLoading, $ionicHistory, $state) {
+        // se ejecuta cuando se pulsa el boton de cerrar sesion en el menu lateral derecho
+        $scope.CerrarSesion = function () {
+
+            $ionicLoading.show({
+                template: 'Cerrando Sesión...'
+            });
+
+
+            // se elimina del localstorage usuario y contraseñas si es que existen
+            if (window.localStorage.getItem("username") != null) {
+                window.localStorage.removeItem("username")
+            }
+
+            if (window.localStorage.getItem("password") != null) {
+                window.localStorage.removeItem("password")
+            }
+
+            // se almacena el savelogin con show para indicar que debe mostrar mensaje al iniciar sesion
+            window.localStorage.setItem("savelogin", "show");
+
+            // timeout de 2 segundos que permite ocultar mensaje, limpiar cache e historial, etc
+            setTimeout(function () {
+                $ionicLoading.hide();
+                $ionicHistory.clearCache();
+                $ionicHistory.clearHistory();
+                $ionicHistory.nextViewOptions({
+                    disableBack: true
+                    , historyRoot: true
+                });
+                $state.go('conectarse');
+            }, 1000);
+        }
+    };
+
+    root.actualizarVista = function ($scope, $state) {
+        // recarga la pagina actual
+        $scope.ActualizarView = function () {
+            $state.go($state.current, {}, {
+                reload: true
+            });
+        }
+    };
+
+    root.openPopover = function ($scope, $ionicPopover) {
+        // funcion que se ejecuta cuando se hace click sobre el titulo de una notificacion
+        $scope.openPopover = function ($event, titulo, detalle) {
+
+            $scope.title = titulo;
+
+            $scope.content = detalle;
+
+            $ionicPopover.fromTemplateUrl('templates/popover.html', {
+                scope: $scope
+                , animation: 'slide-in-up'
+            }).then(function (popover) {
+                $scope.popover = popover;
+                $scope.popover.show($event);
+            });
+
+        }
+    };
+
+    root.goHome = function ($scope, $state) {
+        $scope.GoHome = function () {
+            $state.go('misNotificaciones', {
+                idCuenta: $scope.idCuenta
+            });
+        }
+    }
+
+    return root;
+})
 
 .factory('MenuOpcionesFunction', function () {
     var root = {};
