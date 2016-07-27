@@ -48,28 +48,28 @@ angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl',
         , enableHighAccuracy: true
     };
 
-    $ionicLoading.hide();
+//    $ionicLoading.hide();
+//
+//    ProcesoBusquedaReglas($scope.idCuenta);
 
-    ProcesoBusquedaReglas($scope.idCuenta);
-
-    //    //se verifica que el dispositivo tengo habilitado el GPS.
-    //    $cordovaGeolocation.getCurrentPosition(posOptions).then(function (position) {
-    //        
-    //        $ionicLoading.hide();
-    //
-    //        ProcesoBusquedaReglas($scope.idCuenta);
-    //
-    //    }, function (err) {
-    //        $ionicLoading.hide();
-    //        //$scope.showIni = false;
-    //        $ionicPopup.alert({
-    //            title: 'Error en GeoLocalización'
-    //            , template: 'No es posible obtener la posición geográfica para su registro.<br>Favor revisar conexión y revisar activación de geolocalización de su dispositivo.'
-    //        });
-    //
-    //        volverMisNotificaciones();
-    //
-    //    });
+        //se verifica que el dispositivo tengo habilitado el GPS.
+        $cordovaGeolocation.getCurrentPosition(posOptions).then(function (position) {
+            
+            $ionicLoading.hide();
+    
+            ProcesoBusquedaReglas($scope.idCuenta);
+    
+        }, function (err) {
+            $ionicLoading.hide();
+            //$scope.showIni = false;
+            $ionicPopup.alert({
+                title: 'Error en GeoLocalización'
+                , template: 'No es posible obtener la posición geográfica para su registro.<br>Favor revisar conexión y revisar activación de geolocalización de su dispositivo.'
+            });
+    
+            volverMisNotificaciones();
+    
+        });
 
     function ProcesoBusquedaReglas(idCuenta) {
         $ionicLoading.show({
