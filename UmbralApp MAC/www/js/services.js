@@ -5,7 +5,7 @@ angular.module('app.services', [])
 .factory("LoginService", ['$soap', function ($soap) {
     //var base_url = "http://10.0.2.2:8273/U02709C.asmx";
     //var base_url = "http://10.0.167.27/MRAT_UQA/U02709C.asmx";
-    var base_url = "http://www.opendat.cl/umbral/U02709C.asmx";
+    var base_url = "http://www.opendat.cl/umbral_ws/U02709C.asmx";
 
     //$soap.setCredentials("umbral", "1234");
 
@@ -46,7 +46,7 @@ angular.module('app.services', [])
 .factory("PushNotificationService", ['$soap', function ($soap) {
     //var base_url = "http://10.0.2.2:8273/U02709C.asmx";
     //var base_url = "http://10.0.167.27/MRAT_UQA/U02709C.asmx";
-    var base_url = "http://www.opendat.cl/umbral/U02709C.asmx";
+    var base_url = "http://www.opendat.cl/umbral_ws/U02709C.asmx";
 
     //$soap.setCredentials("umbral", "1234");
 
@@ -94,7 +94,7 @@ angular.module('app.services', [])
 .factory('MenuDinamicoService', ['$soap', function ($soap) {
     //var base_url = "http://10.0.2.2:8273/U0281CC.asmx";
     //var base_url = "http://10.0.167.27/MRAT_UQA/U0281CC.asmx";
-    var base_url = "http://www.opendat.cl/umbral/U0281CC.asmx";
+    var base_url = "http://www.opendat.cl/umbral_ws/U0281CC.asmx";
 
     //$soap.setCredentials("umbral", "1234");
 
@@ -111,7 +111,7 @@ angular.module('app.services', [])
 
     
     //var base_url = "http://10.0.167.27/MRAT_UQA/U028424.asmx";
-    var base_url = "http://www.opendat.cl/umbral/U028424.asmx"
+    var base_url = "http://www.opendat.cl/umbral_ws/U028424.asmx"
     return {
 
         //Funcion que busca las reglas de verificacion asignadas a la persona segun su ID de cuenta.
