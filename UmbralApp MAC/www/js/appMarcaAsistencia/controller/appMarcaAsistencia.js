@@ -119,7 +119,7 @@ angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl',
     */
     function filtrado(convenio) {
         var list = [];
-        for (i = 0; i < $scope.VERIFICACIONES.length; i++) {
+        for (var i = 0; i < $scope.VERIFICACIONES.length; i++) {
             if ($scope.VERIFICACIONES[i].U0205FA == convenio) {
                 list.push($scope.VERIFICACIONES[i]);
             }
@@ -382,7 +382,7 @@ angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl',
             $cordovaGeolocation.getCurrentPosition(options).then(function (pos) {
                 var lat = pos.coords.latitude
                 var long = pos.coords.longitude
-                var loc = lat + ";" + long;
+                var loc = lat + " " + long;
 
                 Autenticacion(lineaT, loc);
 

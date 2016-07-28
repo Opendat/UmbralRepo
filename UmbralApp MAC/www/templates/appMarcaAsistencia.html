@@ -45,16 +45,29 @@
                 </div>
 
                 <div ng-if="!MoreRV">
-                    <p><b>Convenio: </b>{{VERIFICACIONES[0].DESCRIPCION_CONTRATO}}</p>
+                    <div>
+                        <p><b>Convenio: </b>{{VERIFICACIONES[0].DESCRIPCION_CONTRATO}}</p>
+                    </div>
                     <br>
-                    <p><b>Jornada: </b>{{VERIFICACIONES[0].JORNADA}}</p>
-
-                    <div class="row" ng-repeat="li in LineaTiempo">
-                        <div class="col">
-                            <button class="button button-block button-large button-positive" ng-click="ProcesoMarcaje(li)">{{li.NOMBRE_EVENTO}}</button>
-                        </div>
+                    <div>
+                        <p><b>Jornada: </b>{{VERIFICACIONES[0].JORNADA}}</p>
                     </div>
 
+                    <!--
+                    <div class="row" ng-repeat="li in LineaTiempo">
+                        <div class="col" style="bordercolor='#FFFFFF'">
+                            <a class="button button-block button-large button-positive" ng-click="ProcesoMarcaje(li)">{{li.NOMBRE_EVENTO}}</a>
+                        
+                        </div>
+                            
+                    </div>
+-->
+                    <div ng-repeat="li in LineaTiempo">
+                        <button class="button button-block button-large button-positive" ng-click="ProcesoMarcaje(li)">{{li.NOMBRE_EVENTO}}</button>
+
+                    </div>
+
+                    
                 </div>
 
             </ion-content>
