@@ -15,8 +15,8 @@ angular.module('angularSoap', [])
 
             //Create Callback
             var soapCallback = function (e) {
-                
-                if(e != null){
+
+                if (e != null) {
                     if (e.constructor.toString().indexOf("function Error()") != -1) {
                         deferred.reject("An error has occurred.");
                     } else {

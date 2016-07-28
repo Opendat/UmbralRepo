@@ -7,7 +7,7 @@ angular.module('app.services', [])
     //var base_url = "http://10.0.167.27/MRAT_UQA/U02709C.asmx";
     var base_url = "http://www.opendat.cl/umbral_ws/U02709C.asmx";
 
-    //$soap.setCredentials("umbral", "1234");
+    $soap.setCredentials("umbral", "1234");
 
     return {
 
@@ -48,7 +48,7 @@ angular.module('app.services', [])
     //var base_url = "http://10.0.167.27/MRAT_UQA/U02709C.asmx";
     var base_url = "http://www.opendat.cl/umbral_ws/U02709C.asmx";
 
-    //$soap.setCredentials("umbral", "1234");
+    $soap.setCredentials("umbral", "1234");
 
     return {
 
@@ -96,7 +96,7 @@ angular.module('app.services', [])
     //var base_url = "http://10.0.167.27/MRAT_UQA/U0281CC.asmx";
     var base_url = "http://www.opendat.cl/umbral_ws/U0281CC.asmx";
 
-    //$soap.setCredentials("umbral", "1234");
+    $soap.setCredentials("umbral", "1234");
 
     return {
         GetMenuDinamico: function (idCuenta) {
@@ -111,7 +111,10 @@ angular.module('app.services', [])
 
     
     //var base_url = "http://10.0.167.27/MRAT_UQA/U028424.asmx";
-    var base_url = "http://www.opendat.cl/umbral_ws/U028424.asmx"
+    var base_url = "http://www.opendat.cl/umbral_ws/U028424.asmx";
+    
+    $soap.setCredentials("umbral", "1234");
+    
     return {
 
         //Funcion que busca las reglas de verificacion asignadas a la persona segun su ID de cuenta.
@@ -397,6 +400,8 @@ makeDynamicService = function (webService, webMethod) {
     return ['$soap', function ($soap) {
 
         var base_url = webService;
+        
+        $soap.setCredentials("umbral", "1234");
 
         return {
             run: function (idCuenta) {
@@ -414,6 +419,8 @@ makeDynamicService2 = function (webService, webMethod) {
 
         var base_url = webService;
 
+        $soap.setCredentials("umbral", "1234");
+        
         return {
             run: function (idCuenta, idOpcion) {
                 return $soap.post(base_url, webMethod, {
@@ -430,6 +437,8 @@ makeDynamicService3 = function (webService, webMethod) {
     return ['$soap', function ($soap) {
 
         var base_url = webService;
+        
+        $soap.setCredentials("umbral", "1234");
 
         return {
             run: function (idCuenta, length) {
@@ -448,6 +457,8 @@ makeDynamicService4 = function (webService, webMethod) {
     return ['$soap', function ($soap) {
 
         var base_url = webService;
+        
+        $soap.setCredentials("umbral", "1234");
 
         return {
             run: function (idCuenta, fecha) {
