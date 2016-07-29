@@ -44,7 +44,7 @@ angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl',
 
     //busco la ubicacion geografica.
     var posOptions = {
-        timeout: 3000
+        timeout: 10000
         , enableHighAccuracy: true
     };
 
@@ -378,7 +378,7 @@ angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl',
                 template: 'Cargando...'
             });
             var options = {
-                timeout: 3000
+                timeout: 10000
                 , enableHighAccuracy: true
             };
             $cordovaGeolocation.getCurrentPosition(options).then(function (pos) {
