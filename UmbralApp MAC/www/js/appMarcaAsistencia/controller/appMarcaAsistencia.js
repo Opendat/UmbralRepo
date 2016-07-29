@@ -71,6 +71,9 @@ angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl',
     
         });
 
+    /*
+        Funcion usada para buscar las reglas de verificacion asociadas a la cuenta, segun el id de cuenta de la persona.
+    */
     function ProcesoBusquedaReglas(idCuenta) {
         $ionicLoading.show({
             template: 'Cargando...'
@@ -185,7 +188,6 @@ angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl',
                         title: 'Error en Línea de Planificaciones'
                         , template: 'Actualmente no tiene planificación de jornadas.<br>Contactar al fiscalizador.'
                     });
-
                     volverMisNotificaciones();
 
                 } else {
