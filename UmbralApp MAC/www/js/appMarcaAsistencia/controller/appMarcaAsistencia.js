@@ -43,7 +43,7 @@ angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl',
 
     //busco la ubicacion geografica.
     var posOptions = {
-        timeout: 3000
+        timeout: 10000
         , enableHighAccuracy: true
     };
 
@@ -76,6 +76,9 @@ angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl',
 
 
 
+    /*
+        Funcion usada para buscar las reglas de verificacion asociadas a la cuenta, segun el id de cuenta de la persona.
+    */
     function ProcesoBusquedaReglas(idCuenta) {
         $ionicLoading.show({
             template: 'Cargando...'
@@ -190,7 +193,6 @@ angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl',
                         title: 'Error en Línea de Planificaciones'
                         , template: 'Actualmente no tiene planificación de jornadas.<br>Contactar al fiscalizador.'
                     });
-
                     volverMisNotificaciones();
 
                 } else {
@@ -381,7 +383,7 @@ angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl',
                 template: 'Cargando...'
             });
             var options = {
-                timeout: 3000
+                timeout: 10000
                 , enableHighAccuracy: true
             };
             $cordovaGeolocation.getCurrentPosition(options).then(function (pos) {
