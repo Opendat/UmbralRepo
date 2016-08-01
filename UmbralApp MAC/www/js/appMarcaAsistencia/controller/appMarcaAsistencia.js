@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl', function ($scope, $stateParams, RegistroAsistenciaService, $ionicPlatform, $ionicPopup, $ionicLoading, $ionicHistory, $cordovaGeolocation, $cordovaBarcodeScanner, $state, $ionicSideMenuDelegate, MenuOpcionesFunction, MenuDinamicoService, PushNotificationService, FuncionesGlobales) {
+angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl', function ($scope, $stateParams, RegistroAsistenciaService, $ionicPlatform, $ionicPopup, $ionicLoading, $ionicHistory, $cordovaGeolocation, $cordovaBarcodeScanner, $state, $ionicSideMenuDelegate, MenuOpcionesFunction, MenuDinamicoService, PushNotificationService, FuncionesGlobales, $cordovaDevice) {
 
 
     if ($stateParams.idCuenta) {
@@ -15,7 +15,6 @@ angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl',
     if ($stateParams.title) {
         $scope.title = $stateParams.title;
     }
-
 
     $scope.VERIFICACIONES = [];
     $scope.LISTA_FILTRADA = []; //lista con las reglas filtradas segun convenio.
@@ -32,7 +31,7 @@ angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl',
     FuncionesGlobales.cerrarSesion($scope, $ionicLoading, $ionicHistory, $state);
 
     FuncionesGlobales.actualizarVista($scope, $state);
-    
+
     FuncionesGlobales.goHome($scope, $state);
 
 
@@ -48,17 +47,19 @@ angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl',
         , enableHighAccuracy: true
     };
 
-//    $ionicLoading.hide();
-//
-//    ProcesoBusquedaReglas($scope.idCuenta);
+    //condición especial para dispositivo que no trabaja con 2 llamados de getCurrentPosition
+    if ($cordovaDevice.getUUID() == '8314d7b3259b2f8a') {
+        $ionicLoading.hide();
 
+        ProcesoBusquedaReglas($scope.idCuenta);
+    } else {
         //se verifica que el dispositivo tengo habilitado el GPS.
         $cordovaGeolocation.getCurrentPosition(posOptions).then(function (position) {
-            
+
             $ionicLoading.hide();
-    
+
             ProcesoBusquedaReglas($scope.idCuenta);
-    
+
         }, function (err) {
             $ionicLoading.hide();
             //$scope.showIni = false;
@@ -66,10 +67,14 @@ angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl',
                 title: 'Error en GeoLocalización'
                 , template: 'No es posible obtener la posición geográfica para su registro.<br>Favor revisar conexión y revisar activación de geolocalización de su dispositivo.'
             });
-    
+
             volverMisNotificaciones();
-    
+
         });
+    }
+
+
+
 
     function ProcesoBusquedaReglas(idCuenta) {
         $ionicLoading.show({
@@ -215,7 +220,7 @@ angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl',
         });
     }
 
-    
+
     /*
         Funcion que inicia la etapa de seleccion de eventos de marcajes.
         Se recibe la regla de verificacion el cual corresponde la linea de tiempo a seleccionar. (lista_filtrada o regla de verificacion directamente).

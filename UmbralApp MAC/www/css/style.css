@@ -85,6 +85,10 @@
     opacity: 1 !important
 }
 
+.scroll-bar-h {
+    visibility: hidden;
+}
+
 /*
 .scroll-bar-v {
     top: 2px;
