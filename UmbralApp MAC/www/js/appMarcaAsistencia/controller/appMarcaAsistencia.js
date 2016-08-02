@@ -167,15 +167,23 @@ angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl',
         Funcion usada para resaltar la sugerencia de marcaje segun la hora del servidor.
     */
     function sugerencia() {
-        $ionicPopup.show({
+        var mySugerencia = $ionicPopup.show({
+            //template: '<div><button class="button button-outline button-block button-positive" ng-click="ProcesoMarcaje(SUGERENCIA[0])">{{SUGERENCIA[0].NOMBRE_EVENTO}}</button></div>',
             title: 'Sugerencia de marcaje'
-            , subtitle: '¿Es este el marcaje que deseas realizar?', //template: '<div><button class="button button-block button-large button-positive" ng-click = ng-click="ProcesoMarcaje(li)">'+$scope.SUGERENCIA[0].NOMBRE_EVENTO+'</button></div>',
-            template: '<div><button class="button button-block button-large button-positive">Ola</button></div>',
-
-            scope: $scope
+            , subtitle: '¿Es este el marcaje que deseas realizar?'
+            , scope: $scope
             , buttons: [{
-                text: 'No seleccionar'
-            , }]
+                    text: $scope.SUGERENCIA[0].NOMBRE_EVENTO
+                    , type: 'button-outline button-positive'
+                    , onTap: function (e) {
+                        $scope.ProcesoMarcaje($scope.SUGERENCIA[0])
+                        e.preventDefault();
+                    }
+                      }
+                
+                , {
+                    text: 'No seleccionar'
+                }]
         });
 
     }
@@ -217,7 +225,7 @@ angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl',
                 alert("Error en obtención de la sugerencia de la línea de tiempo: " + err);
             });
         }, function (err) {
-            $ionicLoading.hide();
+            $ionicLoading.hide();   
             alert("Error en obtención de la línea de tiempo: " + err);
         });
     }
