@@ -24,7 +24,7 @@ angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl',
     $scope.showJor = false;
     $scope.showIni = true;
     $scope.disabledButtonFilter = true; //nesesario para la disponibilidad del boton de filtro.
-
+    $scope.popupSugerencia = null; //variable que contiene el popup con la sugerencia.
 
     FuncionesGlobales.toogleRight($scope, $state, $ionicSideMenuDelegate, MenuDinamicoService, PushNotificationService, $scope.idCuenta, $ionicLoading, MenuOpcionesFunction);
 
@@ -167,23 +167,12 @@ angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl',
         Funcion usada para resaltar la sugerencia de marcaje segun la hora del servidor.
     */
     function sugerencia() {
-        var mySugerencia = $ionicPopup.show({
-            //template: '<div><button class="button button-outline button-block button-positive" ng-click="ProcesoMarcaje(SUGERENCIA[0])">{{SUGERENCIA[0].NOMBRE_EVENTO}}</button></div>',
-            title: 'Sugerencia de marcaje'
-            , subtitle: '¿Es este el marcaje que deseas realizar?'
+        $scope.popupSugerencia = $ionicPopup.show({
+            template: '<div><button class="button button-outline button-block button-positive" ng-click="ProcesoMarcaje(SUGERENCIA[0])">{{SUGERENCIA[0].NOMBRE_EVENTO}}</button></div>'
+            , title: 'Sugerencia de marcaje'
+            , subTitle: '¿Es este el marcaje que deseas realizar?'
             , scope: $scope
-            , buttons: [{
-                    text: $scope.SUGERENCIA[0].NOMBRE_EVENTO
-                    , type: 'button-outline button-positive'
-                    , onTap: function (e) {
-                        $scope.ProcesoMarcaje($scope.SUGERENCIA[0])
-                        e.preventDefault();
-                    }
-                      }
-                
-                , {
-                    text: 'No seleccionar'
-                }]
+            , buttons: [{text: 'No seleccionar'}]
         });
 
     }
@@ -216,7 +205,7 @@ angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl',
 
                 if (sugerencia_evento.length != 0) {
                     $scope.SUGERENCIA = sugerencia_evento;
-                    //sugerencia();
+                    sugerencia();
                 }
 
 
@@ -225,7 +214,7 @@ angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl',
                 alert("Error en obtención de la sugerencia de la línea de tiempo: " + err);
             });
         }, function (err) {
-            $ionicLoading.hide();   
+            $ionicLoading.hide();
             alert("Error en obtención de la línea de tiempo: " + err);
         });
     }
@@ -387,6 +376,10 @@ angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl',
         Se inicia el proceso de marcaje, comenzando con la etapa de autentificacion.
     */
     $scope.ProcesoMarcaje = function (lineaT) {
+            //cierro la ventana PopUp de sugerencia de evento.
+            $scope.popupSugerencia.close();
+
+
             $ionicLoading.show({
                 template: 'Cargando...'
             });
