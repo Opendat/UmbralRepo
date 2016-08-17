@@ -112,8 +112,8 @@ angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl',
 
             $ionicLoading.hide();
             $ionicPopup.alert({
-                title: 'Error en obtención de reglas de verificación. Contactar al fiscalizador'
-                , template: 'Error de conexión.'
+                title: 'Error en Reglas de verificacion'
+                , template: 'No fue posible obtener la informacion de su/sus reglas de verificacion.<br/> Contactar al fiscalizador.'
             }).then(function (res) {
                 volverMisNotificaciones();
             });
@@ -385,7 +385,7 @@ angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl',
             });
             var options = {
                 timeout: 10000
-                , enableHighAccuracy: true
+                , enableHighAccuracy: false
             };
             $cordovaGeolocation.getCurrentPosition(options).then(function (pos) {
                 var lat = pos.coords.latitude
