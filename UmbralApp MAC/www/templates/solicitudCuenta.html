@@ -1,0 +1,33 @@
+<ion-view cache-view="false" style="" title="Solicitud de Cuenta">
+
+
+    <ion-side-menus>
+        <ion-side-menu-content>
+            <ion-header-bar class='bar-positive' align-title='center'>
+                <div class='buttons'>
+                    <button class="button icon button-clear ion-ios-home-outline" ng-click="GoLogin()"></button>
+                </div>
+                <h1 class="title">Solicitud de Cuenta (Paso 1)</h1>
+            </ion-header-bar>
+            <ion-content class="padding has-header" overflow-scroll="true" padding="true" ng-controller="solicitudCuentaCtrl" style="background-color: #e3f2fd">
+                <form style="" class="list" ng-submit='verificarPersonaEmpresa()'>
+                    <div class="list">
+                        <label class="item item-input item-stacked-label">
+                            <span class="input-label">Rut Persona</span>
+                            <input id="rutPersona" type="text" placeholder="ejemplo: 16527702-3" ng-model="rutPersona">
+                        </label>
+                        <label class="item item-input item-stacked-label">
+                            <span class="input-label">Rut Empresa</span>
+                            <input id="rutEmpresa" type="text" placeholder="ejemplo: 76727040-2" ng-model="rutEmpresa">
+                        </label>
+                        <a id="idVerificarPersonaEmpresa" style="" class="button button-positive button-block" ng-click="verificarPersonaEmpresa()">Siguiente</a>
+
+                    </div>
+                </form>
+
+            </ion-content>
+        </ion-side-menu-content>
+
+    </ion-side-menus>
+
+</ion-view>

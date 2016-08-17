@@ -154,3 +154,14 @@
   display:block;
   float:left;
 }
+
+.item-input{
+    padding: 6px 16px 5px 16px;
+}
+.item-input input{
+    padding-left: 15px;
+}
+.item-select{
+    width:100%;
+    font-size: 14px;
+}

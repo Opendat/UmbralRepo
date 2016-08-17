@@ -50,6 +50,18 @@ angular.module('app', ['ionic', 'ionic.service.core', 'app.controllers', 'app.se
         , templateUrl: 'templates/cambioDeClave.html'
         , controller: 'cambioDeClaveCtrl'
     })
+    
+    .state('solicitudCuenta', {
+        url: '/solicitud-cuenta'
+        , templateUrl: 'templates/solicitudCuenta.html'
+        , controller: 'solicitudCuentaCtrl'
+    })
+    
+    .state('solicitudCuenta2', {
+        url: '/solicitud-cuenta2/:Nombre/:Domicilio/:Correo/:Fono/:IdPersona/:RutEmpresa'
+        , templateUrl: 'templates/solicitudCuenta2.html'
+        , controller: 'solicitudCuenta2Ctrl'
+    })
 
     
      $urlRouterProvider.otherwise('/conectarse');

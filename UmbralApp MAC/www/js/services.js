@@ -89,7 +89,37 @@ angular.module('app.services', [])
     }
 }])
 
+.factory("SolicitudCuentaService", ['$soap', function ($soap) {
 
+    var base_url = "http://www.opendat.cl/umbral_ws/U028A64.asmx";
+
+    $soap.setCredentials("umbral", "1234");
+
+    return {
+        ObtenerDatosPersona: function (rutPersona, rutEmpresa) {
+            return $soap.post(base_url, "U028A65", {
+                rutPersona: rutPersona
+                , rutEmpresa: rutEmpresa
+            });
+        },
+        GenerarSolicitudCuenta: function (IdPersona, RutEmpresa, Cuenta, Correo, Fono, PerfilID, Comentario) {
+            return $soap.post(base_url, "U028A66", {
+                IdPersona: IdPersona
+                , RutEmpresa: RutEmpresa
+                , Cuenta: Cuenta
+                , Correo: Correo
+                , Fono: Fono
+                , PerfilID: PerfilID
+                , Comentario: Comentario
+            });
+        },
+        ObtenerPerfiles: function () {
+            return $soap.post(base_url, "U028A67");
+        }
+        
+    }
+
+}])
 
 .factory('MenuDinamicoService', ['$soap', function ($soap) {
     //var base_url = "http://10.0.2.2:8273/U0281CC.asmx";
@@ -107,14 +137,16 @@ angular.module('app.services', [])
     }
 }])
 
+
+
 .factory("RegistroAsistenciaService", ['$soap', function ($soap) {
 
-    
+
     //var base_url = "http://10.0.167.27/MRAT_UQA/U028424.asmx";
     var base_url = "http://www.opendat.cl/umbral_ws/U028424.asmx";
-    
+
     $soap.setCredentials("umbral", "1234");
-    
+
     return {
 
         //Funcion que busca las reglas de verificacion asignadas a la persona segun su ID de cuenta.
@@ -248,6 +280,12 @@ angular.module('app.services', [])
             $state.go('misNotificaciones', {
                 idCuenta: $scope.idCuenta
             });
+        }
+    }
+    
+    root.goLogin = function ($scope, $state) {
+        $scope.GoLogin = function () {
+            $state.go('conectarse');
         }
     }
 
@@ -400,7 +438,7 @@ makeDynamicService = function (webService, webMethod) {
     return ['$soap', function ($soap) {
 
         var base_url = webService;
-        
+
         $soap.setCredentials("umbral", "1234");
 
         return {
@@ -420,7 +458,7 @@ makeDynamicService2 = function (webService, webMethod) {
         var base_url = webService;
 
         $soap.setCredentials("umbral", "1234");
-        
+
         return {
             run: function (idCuenta, idOpcion) {
                 return $soap.post(base_url, webMethod, {
@@ -437,7 +475,7 @@ makeDynamicService3 = function (webService, webMethod) {
     return ['$soap', function ($soap) {
 
         var base_url = webService;
-        
+
         $soap.setCredentials("umbral", "1234");
 
         return {
@@ -457,7 +495,7 @@ makeDynamicService4 = function (webService, webMethod) {
     return ['$soap', function ($soap) {
 
         var base_url = webService;
-        
+
         $soap.setCredentials("umbral", "1234");
 
         return {
