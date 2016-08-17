@@ -436,10 +436,10 @@ angular.module('app.controllers', ['ionic'])
         $scope.Domicilio = $stateParams.Domicilio;
     }
     if ($stateParams.Correo) {
-        $scope.Correo = $stateParams.Correo;
+        //$scope.Correo = $stateParams.Correo;
     }
     if ($stateParams.Fono) {
-        $scope.Fono = $stateParams.Fono;
+        //$scope.Fono = $stateParams.Fono;
     }
     if ($stateParams.IdPersona) {
         $scope.IdPersona = $stateParams.IdPersona;
