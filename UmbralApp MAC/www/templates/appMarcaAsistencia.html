@@ -18,7 +18,7 @@
                     <p>Seleccione un convenio y jornada</p>
 
                     <div class="list">
-                        <label class="item item-select item-input">
+                        <label class="item item-select item-input item-positive">
                             <div class="input-label">
                                 Convenio
                             </div>
@@ -27,7 +27,7 @@
                             </select>
                         </label>
                         <div ng-if="showJor">
-                            <label class="item item-select item-input">
+                            <label class="item item-select item-input item-positive">
                                 <div class="input-label">
                                     Jornada
                                 </div>
@@ -53,20 +53,21 @@
                         <p><b>Jornada: </b>{{VERIFICACIONES[0].JORNADA}}</p>
                     </div>
 
-                    <!--
-                    <div class="row" ng-repeat="li in LineaTiempo">
-                        <div class="col" style="bordercolor='#FFFFFF'">
-                            <a class="button button-block button-large button-positive" ng-click="ProcesoMarcaje(li)">{{li.NOMBRE_EVENTO}}</a>
-                        
-                        </div>
+
+                    <div ng-repeat="li in LineaTiempo" style="" ng-class="'list card fade'">
+                    <div class="item item-divider row" style="background-color: #2196f3; color: #FFFFFF" ng-click="ProcesoMarcaje(li)">
+
+                        <div class="col col-75">{{li.NOMBRE_EVENTO}}</div>
+                        <div class="col" style="text-align: right; font-style: italic"><b>{{li.U0269FB}}</b></div>
                     </div>
-                    -->
+                </div>
+<!--
                     <div ng-repeat="li in LineaTiempo">
                         <button class="button button-block button-large button-positive" ng-click="ProcesoMarcaje(li)">{{li.NOMBRE_EVENTO}}</button>
                         <br/>
                     </div>
+-->
 
-                    
                 </div>
 
             </ion-content>

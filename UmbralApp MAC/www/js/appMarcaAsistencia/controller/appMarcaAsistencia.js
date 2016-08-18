@@ -168,11 +168,11 @@ angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl',
     */
     function sugerencia() {
         $scope.popupSugerencia = $ionicPopup.show({
-            template: '<div><button class="button button-outline button-block button-positive" ng-click="ProcesoMarcaje(SUGERENCIA[0])">{{SUGERENCIA[0].NOMBRE_EVENTO}}</button></div>'
+            template: '<div><button class="button button-outline button-block button-positive" ng-click="ProcesoMarcaje(SUGERENCIA[0])">{{SUGERENCIA[0].NOMBRE_EVENTO}} - {{SUGERENCIA[0].U0269FB}}</button></div>'
             , title: 'Sugerencia de marcaje'
             , subTitle: '¿Es este el marcaje que deseas realizar?'
             , scope: $scope
-            , buttons: [{text: 'No seleccionar'}]
+            , buttons: [{text: 'Seleccionar otro Evento'}]
         });
 
     }
