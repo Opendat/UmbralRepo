@@ -16,8 +16,8 @@
                         <h3>{{Nombre}}</h3>
                         <p style='font-size: 12px'>{{Domicilio}}</p>
                     </div>
-                    <input type="text" ng-model="IdPersona" style="display: none;"/>
-                    <input type="text" ng-model="RutEmpresa" style="display: none;"/>
+                    <input type="text" ng-model="IdPersona" style="display: none;" />
+                    <input type="text" ng-model="RutEmpresa" style="display: none;" />
                     <label class="item item-input item-stacked-label">
                         <span class="input-label">Cuenta</span>
                         <input id="Cuenta" type="text" placeholder="ejemplo: jperez" ng-model="Cuenta">
@@ -37,21 +37,21 @@
                         <select ng-model="selectedItem" ng-options="item.nombre for item in items" class="item item-input item-select item-light">
                         </select>
 
-<!--
+                        <!--
                             <select ng-model="selectedItem" class="item item-input item-select item-light">
                                 <option ng-repeat="item in items" value="{{item.id}}">{{item.nombre}}</option>
                             </select>
 -->
-                            
-
 
                     </label>
+                    
                     <label class="item item-input item-stacked-label">
                         <span class="input-label">Comentarios</span>
 
                         <textarea id="Comentario" rows="3" cols="5" ng-model="Comentario">
                         </textarea>
                     </label>
+
                     <a id="idVerificarPersonaEmpresa" style="" class="button button-positive button-block" ng-click="generarSolicitud()">Enviar</a>
                 </div>
 
