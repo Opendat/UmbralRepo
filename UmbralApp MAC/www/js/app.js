@@ -13,6 +13,7 @@ angular.module('app', ['ionic', 'ionic.service.core', 'app.controllers', 'app.se
         // for form inputs)
         if (window.cordova && window.cordova.plugins.Keyboard) {
             cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+            cordova.plugins.Keyboard.disableScroll(true);
         }
         if (window.StatusBar) {
             // org.apache.cordova.statusbar required
@@ -49,6 +50,18 @@ angular.module('app', ['ionic', 'ionic.service.core', 'app.controllers', 'app.se
         url: '/cambiar-clave/:idCuenta/:mensaje'
         , templateUrl: 'templates/cambioDeClave.html'
         , controller: 'cambioDeClaveCtrl'
+    })
+    
+    .state('solicitudCuenta', {
+        url: '/solicitud-cuenta'
+        , templateUrl: 'templates/solicitudCuenta.html'
+        , controller: 'solicitudCuentaCtrl'
+    })
+    
+    .state('solicitudCuenta2', {
+        url: '/solicitud-cuenta2/:Nombre/:Domicilio/:Correo/:Fono/:IdPersona/:RutEmpresa'
+        , templateUrl: 'templates/solicitudCuenta2.html'
+        , controller: 'solicitudCuenta2Ctrl'
     })
 
     

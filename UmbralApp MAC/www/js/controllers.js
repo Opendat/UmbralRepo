@@ -5,7 +5,6 @@ angular.module('app.controllers', ['ionic'])
 
     $ionicPlatform.ready(function () {
 
-
         document.addEventListener("deviceready", function () {
 
             if (window.localStorage.getItem("username") !== null && window.localStorage.getItem("password") !== null) {
@@ -153,15 +152,15 @@ angular.module('app.controllers', ['ionic'])
                             LoginService.ObtenerEstadoCuenta($scope.idCuenta).then(function (response) {
                                 $scope.estadoCuenta = response;
 
-                                // si no es Activa (tabla cuenta) o si no es Aprobada (tabla estado solicitud de absentismos?????)
-                                if ($scope.estadoCuenta == "Z0B9917" || $scope.estadoCuenta == "Z0B9A41") {
-                                    // si no es porque lacuenta está habilitada para iniciar sesión y se redirecciona a la ventana correspondiente
+                                // si es Activa (tabla cuenta) o si es Aprobada (tabla estado solicitud de cuentas)
+                                if ($scope.estadoCuenta == "Z0B9917" || $scope.estadoCuenta == "Z0B99B2") {
+                                    // si es, es porque la cuenta está habilitada para iniciar sesión y se redirecciona a la ventana correspondiente
                                     $state.go('conectarse2', {
                                         idCuenta: $scope.idCuenta
                                         , idPersona: $scope.idPersona
                                     });
                                 } else {
-                                    // se notifica que debe activar la contraseña que se le proporcionará y se redirecciona a que cambie la clave
+                                    // se notifica que debe activar la cuenta, una contraseña se le proporcionará y se redirecciona a que la cambie
                                     $ionicPopup.alert({
                                         title: 'Activar Cuenta'
                                         , template: 'En unos momentos, se le proporcionará la contraseña para poder activar su cuenta'
@@ -210,6 +209,10 @@ angular.module('app.controllers', ['ionic'])
             });
 
 
+    }
+
+    $scope.solicitudCuenta = function () {
+        $state.go('solicitudCuenta');
     }
 })
 
@@ -333,4 +336,208 @@ angular.module('app.controllers', ['ionic'])
         })
 
     }
+})
+
+
+.controller('solicitudCuentaCtrl', function ($scope, $ionicPopup, FuncionesGlobales, SolicitudCuentaService, $ionicLoading, $stateParams, $ionicHistory, $state) {
+
+    FuncionesGlobales.goLogin($scope, $state);
+
+    //de prueba
+    //$scope.rutPersona = "11343475-9";
+    //$scope.rutEmpresa = "76005567-0";
+
+    // función para verificar que la persona exista y este asociada a la empresa
+    $scope.verificarPersonaEmpresa = function () {
+
+        if ($scope.rutPersona == null || $scope.rutPersona == '') // si el campo es vacío
+        {
+            $ionicPopup.alert({
+                title: 'Campo Vacío'
+                , template: 'Por favor, ingrese el Rut de Persona'
+            });
+            return;
+        }
+        if ($scope.rutEmpresa == null || $scope.rutEmpresa == '') // si el campo es vacío
+        {
+            $ionicPopup.alert({
+                title: 'Campo Vacío'
+                , template: 'Por favor, ingrese el Rut de Empresa'
+            });
+            return;
+        }
+
+        $ionicLoading.show({
+            template: 'Verificando...'
+        });
+
+        SolicitudCuentaService.ObtenerDatosPersona($scope.rutPersona, $scope.rutEmpresa).then(function (response) {
+            $ionicLoading.hide();
+
+            if (response.Resultado) {
+
+                if (response.Resultado == 'Cliente o Empresa ingresada no encontrada') {
+                    $ionicPopup.alert({
+                        title: 'Cliente no encontrado'
+                        , template: 'Rut de Persona o Empresa no encontrado.'
+                    });
+                }
+
+
+                if (response.Resultado == 'Cliente solicitante no está asociado a la Empresa ingresada') {
+                    $ionicPopup.alert({
+                        title: 'Cliente no asociado'
+                        , template: 'Persona solicitante no está asociado a la Empresa ingresada.'
+                    });
+                }
+
+                if (response.Resultado == 'Cliente solicitante no está habilitado para solicitar una cuenta') {
+                    $ionicPopup.alert({
+                        title: 'Cliente no habilitado'
+                        , template: 'Persona solicitante no está habilitada para solicitar una cuenta.'
+                    });
+                }
+
+                if (response.Resultado == 'Ya existe una cuenta para el Cliente solicitante') {
+                    $ionicPopup.alert({
+                        title: 'Cliente ya existe'
+                        , template: 'Ya existe una cuenta para la Persona solicitante.'
+                    });
+                }
+
+            } else {
+
+                $state.go('solicitudCuenta2', {
+                    Nombre: response.Nombre
+                    , Domicilio: response.Domicilio
+                    , Correo: response.Correo
+                    , Fono: response.Fono
+                    , IdPersona: response.IdPersona
+                    , RutEmpresa: response.RutEmpresa
+                });
+
+            }
+        });
+
+
+
+    }
+})
+
+.controller('solicitudCuenta2Ctrl', function ($scope, $ionicPopup, FuncionesGlobales, SolicitudCuentaService, $ionicLoading, $stateParams, $ionicHistory, $state, $stateParams) {
+
+
+    FuncionesGlobales.goLogin($scope, $state);
+
+    if ($stateParams.Nombre) {
+        $scope.Nombre = $stateParams.Nombre;
+    }
+    if ($stateParams.Domicilio) {
+        $scope.Domicilio = $stateParams.Domicilio;
+    }
+    if ($stateParams.Correo) {
+        //$scope.Correo = $stateParams.Correo;
+    }
+    if ($stateParams.Fono) {
+        //$scope.Fono = $stateParams.Fono;
+    }
+    if ($stateParams.IdPersona) {
+        $scope.IdPersona = $stateParams.IdPersona;
+    }
+    if ($stateParams.RutEmpresa) {
+        $scope.RutEmpresa = $stateParams.RutEmpresa;
+    }
+
+    SolicitudCuentaService.ObtenerPerfiles().then(function (response) {
+
+        var i = 0;
+        var array = [];
+        while (i < response.length) {
+
+            array.push({
+                id: response[i].Id
+                , nombre: response[i].Nombre
+            });
+
+            if (response[i].Nombre == 'Trabajador') {
+                $scope.selectedItem = array[i];
+            }
+            i++;
+        }
+        $scope.items = array;
+
+    });
+
+
+    // funcion que permite generar una solicitud de cuenta
+    $scope.generarSolicitud = function () {
+
+
+        if ($scope.Cuenta == null || $scope.Cuenta == '') // si el campo es vacío
+        {
+            $ionicPopup.alert({
+                title: 'Campo Vacío'
+                , template: 'Por favor, ingrese un nombre de Cuenta'
+            });
+            return;
+        }
+
+        if ($scope.Correo == null || $scope.Correo == '') {
+            $scope.Correo = '';
+        }
+
+        if ($scope.Fono == null || $scope.Fono == '') {
+            $scope.Fono = '';
+        }
+
+        if ($scope.Comentario == null || $scope.Comentario == '') {
+            $scope.Comentario = '';
+        }
+
+        $ionicLoading.show({
+            template: 'Verificando...'
+        });
+
+        var PerfilID = $scope.selectedItem.id;
+
+        SolicitudCuentaService.GenerarSolicitudCuenta($scope.IdPersona, $scope.RutEmpresa, $scope.Cuenta, $scope.Correo, $scope.Fono, PerfilID, $scope.Comentario).then(function (response) {
+
+            $ionicLoading.hide();
+
+
+            if (response != 'Ingreso correcto.') {
+                if (response == 'No se puede enviar su solicitud.') {
+                    $ionicPopup.alert({
+                        title: 'Error de Solicitud'
+                        , template: 'Hubo un error al crear la solicitud de Cuenta.'
+                    });
+                }
+
+                if (response == 'Hubo un error al ingresar la contraseña.') {
+                    $ionicPopup.alert({
+                        title: 'Error de Contraseña'
+                        , template: 'Hubo un error al generar la contraseña.'
+                    });
+                }
+                if (response == 'Hubo un error al crear la auditoria para esta solicitud.') {
+                    $ionicPopup.alert({
+                        title: 'Error de Auditoria'
+                        , template: 'Hubo un error al crear la auditoria para la solicitud generada.'
+                    });
+                }
+
+            } else {
+                $ionicPopup.alert({
+                    title: 'Solicitud de Cuenta'
+                    , template: 'La Solicitud ha sido enviada Correctamente.'
+                }).then(function (res) {
+                    
+                    $state.go('conectarse');
+
+                });
+            }
+        });
+
+    }
+
 })

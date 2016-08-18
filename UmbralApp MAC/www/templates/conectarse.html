@@ -1,5 +1,5 @@
 <ion-view style="" title="Conectarse">
-    <ion-content class="center has-footer" overflow-scroll="false" padding="true" ng-controller="conectarseCtrl" style="background-color: #1565c0;">
+    <ion-content class="center has-footer" overflow-scroll="false" padding="true" ng-controller="conectarseCtrl" style="background-color: #1565c0">
         <form style="" class="list" ng-submit='verificarCuenta()'>
             <img ng-src="img/logo.png" style="margin-left: auto; margin-right: auto; display: block;" />
             <ion-list style="">
@@ -9,7 +9,7 @@
                 </label>
             </ion-list>
             <a id="idVerificarCuenta" style="" class="button button-positive button-block " ng-click="verificarCuenta()">Siguiente</a>
-            <a style="color: #FFFFFF;" class="button button-positive button-clear button-block  icon-left ion-android-share" onclick="window.open('http://10.0.167.27/MRAT_UQA/', '_system', 'location=yes'); return false;" href="#">Solicita una Cuenta</a>
+            <a style="color: #FFFFFF" class="button button-positive button-clear button-block  icon-left ion-android-share" ng-click="solicitudCuenta()" href="#">Solicita una Cuenta</a>
 
             <!--
             <h3>
