@@ -205,7 +205,7 @@ angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl',
 
                 if (sugerencia_evento.length != 0) {
                     $scope.SUGERENCIA = sugerencia_evento;
-                    sugerencia();
+                    //sugerencia();
                 }
 
 
