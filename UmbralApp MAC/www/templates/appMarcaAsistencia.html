@@ -45,13 +45,25 @@
                 </div>
 
                 <div ng-if="!MoreRV">
-                    <div>
+                    
+                    <div class="list card">
+                        <div class="item item-text-wrap" style="height:55px; background-color: #2196f3">
+                            Convenio
+                            <span class="item-note">{{VERIFICACIONES[0].DESCRIPCION_CONTRATO}}</span>
+                        </div>
+                        <div class="item item-text-wrap" style="height:50px; background-color: #2196f3">
+                            Jornada
+                            <span class="item-note">{{VERIFICACIONES[0].JORNADA}}</span>
+                        </div>
+                    </div>
+                    
+                    <!--<div>
                         <p><b>Convenio: </b>{{VERIFICACIONES[0].DESCRIPCION_CONTRATO}}</p>
                     </div>
                     <br>
                     <div>
                         <p><b>Jornada: </b>{{VERIFICACIONES[0].JORNADA}}</p>
-                    </div>
+                    </div>-->
 
 
                     <div ng-repeat="li in LineaTiempo" style="" ng-class="'list card fade'">
