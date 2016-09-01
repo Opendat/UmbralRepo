@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl', function ($scope, $stateParams, RegistroAsistenciaService, $ionicPlatform, $ionicPopup, $ionicLoading, $ionicHistory, $cordovaGeolocation, $cordovaBarcodeScanner, $state, $ionicSideMenuDelegate, MenuOpcionesFunction, MenuDinamicoService, PushNotificationService, FuncionesGlobales, $cordovaDevice) {
+angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl', function ($scope, $stateParams, RegistroAsistenciaService, $ionicPlatform, $ionicPopup, $ionicLoading, $ionicHistory, $cordovaGeolocation, $cordovaBarcodeScanner, $state, $ionicSideMenuDelegate, MenuOpcionesFunction, MenuDinamicoService, PushNotificationService, FuncionesGlobales, $cordovaDevice,$cordovaToast) {
 
 
     if ($stateParams.idCuenta) {
@@ -248,9 +248,10 @@ angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl',
             RegistroAsistenciaService.IngresoMarcaje($scope.idCuenta, lineaT.U0269FC, lineaT.U0269F9, lineaT.U0269FE, localizacionGeografica).then(function () {
                 $ionicLoading.hide();
                 $ionicPopup.alert({
-                    title: 'Ingreso Correcto'
-                    , template: 'Se ha realizado el registro de marcaje.'
+                    title: 'Inicio Jornada'
+                    , template: 'Ingreso Correcto'
                 });
+                //$cordovaToast.showLongBottom('Ingreso Correcto');
 
                 volverMisNotificaciones();
             }, function () {
@@ -266,9 +267,10 @@ angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl',
             RegistroAsistenciaService.IngresoMarcaje($scope.idCuenta, lineaT.U0269FC, lineaT.U0269F9, lineaT.U0269FE, localizacionGeografica).then(function () {
                 $ionicLoading.hide();
                 $ionicPopup.alert({
-                    title: 'Ingreso Correcto'
-                    , template: 'Se ha realizado el registro de marcaje.'
+                    title: 'Inicio Jornada'
+                    , template: 'Ingreso Correcto'
                 });
+                //$cordovaToast.showLongBottom('Ingreso Correcto');
 
                 volverMisNotificaciones();
             }, function () {
@@ -284,9 +286,10 @@ angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl',
             RegistroAsistenciaService.IngresoMarcaje($scope.idCuenta, lineaT.U0269FC, lineaT.U0269F9, lineaT.U0269FE, localizacionGeografica).then(function () {
                 $ionicLoading.hide();
                 $ionicPopup.alert({
-                    title: 'Ingreso Correcto'
-                    , template: 'Se ha realizado el registro de marcaje.'
+                    title: 'Inicio Jornada'
+                    , template: 'Ingreso Correcto'
                 });
+                //$cordovaToast.showLongBottom('Ingreso Correcto');
 
                 volverMisNotificaciones();
             }, function () {
@@ -295,6 +298,7 @@ angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl',
                     title: 'Error en registro de marca'
                     , template: 'No ha sido posible realizar el registro de marcaje.'
                 });
+                
             });
 
             break;
@@ -303,9 +307,10 @@ angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl',
             RegistroAsistenciaService.IngresoMarcaje($scope.idCuenta, lineaT.U0269FC, lineaT.U0269F9, lineaT.U0269FE, localizacionGeografica).then(function () {
                 $ionicLoading.hide();
                 $ionicPopup.alert({
-                    title: 'Ingreso Correcto'
-                    , template: 'Se ha realizado el registro de marcaje.'
+                    title: 'Inicio Jornada'
+                    , template: 'Ingreso Correcto'
                 });
+                //$cordovaToast.showLongBottom('Ingreso Correcto');
 
                 volverMisNotificaciones();
             }, function () {
