@@ -145,9 +145,11 @@ angular.module('app.controllers', ['ionic'])
 
 
 
+    $scope.formData = {};
     // función para verificar la cuenta del usuario
     $scope.verificarCuenta = function () {
-        if ($scope.idCuenta == null || $scope.idCuenta == '') // si el campo es vacío
+        
+        if ($scope.formData.idCuenta == null || $scope.formData.idCuenta == '') // si el campo es vacío
         {
             $ionicPopup.alert({
                 title: 'Campo Vacío'
@@ -162,7 +164,7 @@ angular.module('app.controllers', ['ionic'])
 
         //$scope.idCuenta = $scope.idCuenta.toUpperCase();
 
-        LoginService.VerificarCuenta($scope.idCuenta).then(function (response) {
+        LoginService.VerificarCuenta($scope.formData.idCuenta).then(function (response) {
 
                 $scope.idPersona = response;
                 $ionicLoading.hide();
@@ -174,20 +176,20 @@ angular.module('app.controllers', ['ionic'])
                                 template: 'Cargando...'
                             });
 
-                            window.localStorage.setItem("username", $scope.idCuenta); // se guarda la variable idPersona en almacenamiento local
+                            window.localStorage.setItem("username", $scope.formData.idCuenta); // se guarda la variable idPersona en almacenamiento local
 
-                            PushNotificationService.BuscarCliente($scope.idPersona, $scope.UUID, $scope.newInstanceID, $scope.idCuenta).then(function (response) {
+                            PushNotificationService.BuscarCliente($scope.idPersona, $scope.UUID, $scope.newInstanceID, $scope.formData.idCuenta).then(function (response) {
                                 $ionicLoading.hide();
                             });
 
-                            LoginService.ObtenerEstadoCuenta($scope.idCuenta).then(function (response) {
+                            LoginService.ObtenerEstadoCuenta($scope.formData.idCuenta).then(function (response) {
                                 $scope.estadoCuenta = response;
 
                                 // si es Activa (tabla cuenta) o si es Aprobada (tabla estado solicitud de cuentas)
                                 if ($scope.estadoCuenta == "Z0B9917" || $scope.estadoCuenta == "Z0B99B2") {
                                     // si es, es porque la cuenta está habilitada para iniciar sesión y se redirecciona a la ventana correspondiente
                                     $state.go('conectarse2', {
-                                        idCuenta: $scope.idCuenta
+                                        idCuenta: $scope.formData.idCuenta
                                         , idPersona: $scope.idPersona
                                     });
                                 } else {
@@ -197,7 +199,7 @@ angular.module('app.controllers', ['ionic'])
                                         , template: 'En unos momentos, se le proporcionará la contraseña para poder activar su cuenta'
                                     });
                                     $state.go('cambioDeClave', {
-                                        idCuenta: $scope.idCuenta
+                                        idCuenta: $scope.formData.idCuenta
                                         , mensaje: $scope.mensaje
                                     });
                                 }
