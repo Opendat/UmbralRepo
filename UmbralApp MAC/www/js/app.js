@@ -34,10 +34,12 @@ angular.module('app', ['ionic', 'ionic.service.core', 'app.controllers', 'app.se
     $stateProvider
 
 
+    
+    
     .state('conectarse', {
         url: '/conectarse'
         , templateUrl: 'templates/conectarse.html'
-        , controller: 'conectarseCtrl'
+        //, controller: 'conectarseCtrl'
     })
 
     .state('conectarse2', {
@@ -64,6 +66,7 @@ angular.module('app', ['ionic', 'ionic.service.core', 'app.controllers', 'app.se
         , controller: 'solicitudCuenta2Ctrl'
     })
 
+    
     
      $urlRouterProvider.otherwise('/conectarse');
 

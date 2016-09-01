@@ -1,56 +1,25 @@
-<ion-view style="" title="Conectarse">
-    <ion-content class="center has-footer" overflow-scroll="false" padding="true" ng-controller="conectarseCtrl" style="background-color: #1565c0">
-        <form style="" class="list" ng-submit='verificarCuenta()'>
-            <img ng-src="img/logo.png" style="margin-left: auto; margin-right: auto; display: block;" />
-            <ion-list style="">
-                <label style="background-color: #1565c0; border: none; border-bottom: solid #FFFFFF;" class="item item-input">
-                    <span class="input-label" style="color: #FFFFFF">Cuenta Usuario</span>
-                    <input id="idCuenta" style="color: #FFFFFF" placeholder="" type="text" ng-model="idCuenta" class="toUpper">
-                </label>
-            </ion-list>
-            <a id="idVerificarCuenta" style="" class="button button-positive button-block " ng-click="verificarCuenta()">Siguiente</a>
-            <a style="color: #FFFFFF" class="button button-positive button-clear button-block  icon-left ion-android-share" ng-click="solicitudCuenta()" href="#">Solicita una Cuenta</a>
+<div ng-controller="conectarseCtrl">
+    <ion-view cache-view="false" style="" title="Conectarse">
 
-            <!--
-            <h3>
-                Debugging
-            </h3>
-            <br>
-            <p>
-                <b>UUID :</b> {{UUID}}
-                <br>
-                <b>newInstanceID :</b>{{newInstanceID}}
-                <br>
-                <b>mensaje :</b> {{mensaje}}
-                <br>
-                <b>fechaEnvio :</b> {{fechaEnvio}}
-                <br>
-                <b>notifyCuenta :</b> {{notifyCuenta}}
-                <br>
-                <b>foreground :</b> {{foreground}}
-                <br>
-                <b>coldstart :</b> {{coldstart}}
-                <br>
-                <b>idCuenta :</b> {{idCuenta}}
-                <br>
-                <b>idPersona :</b> {{idPersona}}
-                <br>
-                <b>estadoCuenta :</b> {{estadoCuenta}}
-                <br>
-                <b>password :</b> {{password}}
-                <br>
-                <b>newPass :</b> {{newPass}}
-                <br>
-                <b>oldPass :</b> {{oldPass}}
-                <br>
-                <b>confirmPass :</b> {{confirmPass}}
-            </p>
--->
+        <ion-content class="center has-footer" overflow-scroll="false" padding="true" style="background-color: #1565c0">
 
-        </form>
-    </ion-content>
-    <ion-footer-bar align-title="right" class="bar-light foo">
-        <h6 class="title" style="font-size: 10px; line-height: 24px">Versión: U005150</h6>
-    </ion-footer-bar>
+            <form style="" class="list" ng-submit='verificarCuenta()'>
+                <img ng-src="img/logo.png" style="margin-left: auto; margin-right: auto; display: block;" />
+                <ion-list style="">
+                    <label style="background-color: #1565c0; border: none; border-bottom: solid #FFFFFF;" class="item item-input">
+                        <span class="input-label" style="color: #FFFFFF">Cuenta Usuario</span>
+                        <input id="idCuenta" style="color: #FFFFFF" type="text" ng-model="idCuenta">
+                    </label>
+                </ion-list>
+                <a id="idVerificarCuenta" style="" class="button button-positive button-block " ng-click="verificarCuenta()">Siguiente</a>
+                <a style="color: #FFFFFF" class="button button-positive button-clear button-block  icon-left ion-android-share" ng-click="solicitudCuenta()" href="#">Solicita una Cuenta</a>
+            </form>
 
-</ion-view>
+        </ion-content>
+
+        <ion-footer-bar align-title="right" class="bar-light foo">
+            <h6 class="title" style="font-size: 10px; line-height: 24px">{{version}}</h6>
+        </ion-footer-bar>
+
+    </ion-view>
+</div>
