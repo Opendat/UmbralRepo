@@ -247,11 +247,11 @@ angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl',
 
             RegistroAsistenciaService.IngresoMarcaje($scope.idCuenta, lineaT.U0269FC, lineaT.U0269F9, lineaT.U0269FE, localizacionGeografica).then(function () {
                 $ionicLoading.hide();
-                $ionicPopup.alert({
-                    title: 'Inicio Jornada'
-                    , template: 'Ingreso Correcto'
-                });
-                //$cordovaToast.showLongBottom('Ingreso Correcto');
+//                $ionicPopup.alert({
+//                    title: 'Inicio Jornada'
+//                    , template: 'Ingreso Correcto'
+//                });
+                $cordovaToast.showLongBottom('Ingreso Correcto');
 
                 volverMisNotificaciones();
             }, function () {
@@ -266,11 +266,11 @@ angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl',
 
             RegistroAsistenciaService.IngresoMarcaje($scope.idCuenta, lineaT.U0269FC, lineaT.U0269F9, lineaT.U0269FE, localizacionGeografica).then(function () {
                 $ionicLoading.hide();
-                $ionicPopup.alert({
-                    title: 'Inicio Colacion'
-                    , template: 'Ingreso Correcto'
-                });
-                //$cordovaToast.showLongBottom('Ingreso Correcto');
+//                $ionicPopup.alert({
+//                    title: 'Inicio Colacion'
+//                    , template: 'Ingreso Correcto'
+//                });
+                $cordovaToast.showLongBottom('Ingreso Correcto');
 
                 volverMisNotificaciones();
             }, function () {
@@ -285,11 +285,11 @@ angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl',
 
             RegistroAsistenciaService.IngresoMarcaje($scope.idCuenta, lineaT.U0269FC, lineaT.U0269F9, lineaT.U0269FE, localizacionGeografica).then(function () {
                 $ionicLoading.hide();
-                $ionicPopup.alert({
-                    title: 'Termino Colacion'
-                    , template: 'Ingreso Correcto'
-                });
-                //$cordovaToast.showLongBottom('Ingreso Correcto');
+//                $ionicPopup.alert({
+//                    title: 'Termino Colacion'
+//                    , template: 'Ingreso Correcto'
+//                });
+                $cordovaToast.showLongBottom('Ingreso Correcto');
 
                 volverMisNotificaciones();
             }, function () {
@@ -306,11 +306,11 @@ angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl',
 
             RegistroAsistenciaService.IngresoMarcaje($scope.idCuenta, lineaT.U0269FC, lineaT.U0269F9, lineaT.U0269FE, localizacionGeografica).then(function () {
                 $ionicLoading.hide();
-                $ionicPopup.alert({
-                    title: 'Termino Jornada'
-                    , template: 'Ingreso Correcto'
-                });
-                //$cordovaToast.showLongBottom('Ingreso Correcto');
+//                $ionicPopup.alert({
+//                    title: 'Termino Jornada'
+//                    , template: 'Ingreso Correcto'
+//                });
+                $cordovaToast.showLongBottom('Ingreso Correcto');
 
                 volverMisNotificaciones();
             }, function () {
