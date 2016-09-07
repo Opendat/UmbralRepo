@@ -251,9 +251,9 @@ angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl',
 //                    title: 'Inicio Jornada'
 //                    , template: 'Ingreso Correcto'
 //                });
-                $cordovaToast.showLongBottom('Ingreso Correcto');
+                //$cordovaToast.showLongBottom('Ingreso Correcto');
 
-                volverMisNotificaciones();
+                volverMisNotificacionesCorrecto("Inicio Jornada");
             }, function () {
                 $ionicLoading.hide();
                 $ionicPopup.alert({
@@ -270,9 +270,9 @@ angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl',
 //                    title: 'Inicio Colacion'
 //                    , template: 'Ingreso Correcto'
 //                });
-                $cordovaToast.showLongBottom('Ingreso Correcto');
+                //$cordovaToast.showLongBottom('Ingreso Correcto');
 
-                volverMisNotificaciones();
+                volverMisNotificacionesCorrecto("Inicio Colacion");
             }, function () {
                 $ionicLoading.hide();
                 $ionicPopup.alert({
@@ -289,9 +289,9 @@ angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl',
 //                    title: 'Termino Colacion'
 //                    , template: 'Ingreso Correcto'
 //                });
-                $cordovaToast.showLongBottom('Ingreso Correcto');
+                //$cordovaToast.showLongBottom('Ingreso Correcto');
 
-                volverMisNotificaciones();
+                volverMisNotificacionesCorrecto("Termino Colacion");
             }, function () {
                 $ionicLoading.hide();
                 $ionicPopup.alert({
@@ -310,9 +310,9 @@ angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl',
 //                    title: 'Termino Jornada'
 //                    , template: 'Ingreso Correcto'
 //                });
-                $cordovaToast.showLongBottom('Ingreso Correcto');
+                //$cordovaToast.showLongBottom('Ingreso Correcto');
 
-                volverMisNotificaciones();
+                volverMisNotificacionesCorrecto("Termino Jornada");
             }, function () {
                 $ionicLoading.hide();
                 $ionicPopup.alert({
@@ -362,6 +362,9 @@ angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl',
         }
     }
 
+    /*
+        Funcion usada para volver al lobby
+    */
     function volverMisNotificaciones() {
         //ionic.Platform.exitApp();
         //$scope.showIni = true;
@@ -370,6 +373,30 @@ angular.module('appMarcaAsistencia.module').controller('appMarcaAsistenciaCtrl',
 
         $ionicLoading.hide();
 
+        $state.go('misNotificaciones', {
+            idCuenta: $scope.idCuenta
+        });
+
+    }
+    /*
+        Funcion usada para volver al lobby, en el caso de ingresar un marcaje correctamente.
+    */
+    function volverMisNotificacionesCorrecto(evento) {
+        $scope.showJor = false;
+        $scope.MoreRV = false;
+
+        $ionicLoading.hide();
+
+        var plataforma = ionic.Platform.isIOS();
+        if(!plataforma){
+            $cordovaToast.showLongBottom('Ingreso Correcto');
+        }else{
+            $ionicPopup.alert({
+                    title: evento
+                    , template: 'Ingreso Correcto'
+            });
+        }
+        
         $state.go('misNotificaciones', {
             idCuenta: $scope.idCuenta
         });
