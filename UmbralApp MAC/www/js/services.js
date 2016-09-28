@@ -479,10 +479,10 @@ makeDynamicService3 = function (webService, webMethod) {
         $soap.setCredentials("umbral", "1234");
 
         return {
-            run: function (idCuenta, length) {
+            run: function (idCuenta, lastReg) {
                 return $soap.post(base_url, webMethod, {
                     idCuenta: idCuenta
-                    , length: length
+                    , lastReg: lastReg
                 });
             }
         }

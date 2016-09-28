@@ -1,7 +1,8 @@
 'use strict';
 
-angular.module('appPanel.module').controller('appPanelCtrl', function ($scope, $injector, $ionicLoading, $stateParams, $ionicHistory, $state, $ionicSideMenuDelegate, MenuOpcionesFunction, MenuDinamicoService, PushNotificationService, $ionicPopover
-    , $ionicPopup, $timeout, $ionicScrollDelegate, FuncionesGlobales) {
+angular.module('appPanel.module').controller('appPanelCtrl', function ($scope, $injector, $ionicLoading, $stateParams, $ionicHistory, $state, $ionicSideMenuDelegate, MenuOpcionesFunction, MenuDinamicoService, PushNotificationService, $ionicPopover, $ionicPopup, $timeout, $ionicScrollDelegate, FuncionesGlobales) {
+
+
 
 
     if ($stateParams.idCuenta) {
@@ -99,23 +100,27 @@ angular.module('appPanel.module').controller('appPanelCtrl', function ($scope, $
     $scope.loadMore = function () {
 
 
+        
         //llamado al webservice dinamico
         var fn = makeDynamicService3($scope.webService, $scope.webMethod);
 
+        
         $injector.instantiate(fn).run($scope.idCuenta, $scope.registros.length).then(function (registros) {
 
 
-            if (registros && registros.length <= 0) {
+            if (registros.length <= 0) {
 
                 $scope.noMoreItemsAvailable = true;
             } else {
-
+                
                 $scope.registros = $scope.registros.concat(registros);
+
             }
+
             $scope.$broadcast('scroll.infiniteScrollComplete');
 
-
         });
+
     }
 
 })

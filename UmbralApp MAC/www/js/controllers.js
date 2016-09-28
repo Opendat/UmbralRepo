@@ -288,81 +288,89 @@ angular.module('app.controllers', ['ionic'])
 
 
 
-        function checkConnection() {
-            var networkState = navigator.connection.type;
-
-            var states = {};
-            states[Connection.UNKNOWN] = 'Unknown connection';
-            states[Connection.ETHERNET] = 'Ethernet connection';
-            states[Connection.WIFI] = 'WiFi connection';
-            states[Connection.CELL_2G] = 'Cell 2G connection';
-            states[Connection.CELL_3G] = 'Cell 3G connection';
-            states[Connection.CELL_4G] = 'Cell 4G connection';
-            states[Connection.CELL] = 'Cell generic connection';
-            states[Connection.NONE] = 'No network connection';
-
-            console.log('Connection type: ' + states[networkState]);
-
-
-            if (window.localStorage.getItem("beforeState") != null) {
-
-                if (states[networkState] == window.localStorage.getItem("beforeState")) {
-
-                    checkConnection2();
-
-                } else {
-                    window.localStorage.setItem("beforeState", states[networkState]);
-
-                    $interval.cancel(interval);
-
-                    $ionicPopup.alert({
-                            title: 'La conexión a internet ha cambiado'
-                            , content: 'Disculpe, se dectectó una conexión diferente. Por favor, abra nuevamente la aplicación.'
-                        })
-                        .then(function (result) {
-
-                            ionic.Platform.exitApp();
-                        });
-
-                }
-            } else {
-                window.localStorage.setItem("beforeState", states[networkState]);
-
-                checkConnection2();
-            }
-
-
-        }
-
-        var interval = $interval(function () {
-            checkConnection();
-        }, 5000);
-
-
-
-        function checkConnection2() {
-
-            // Check for network connection
-            if (window.Connection) {
-                if (navigator.connection.type == Connection.NONE) {
-                    $interval.cancel(interval);
-
-                    $ionicPopup.alert({
-                            title: 'No hay conexión a internet'
-                            , content: 'Disculpe, no se detectó conexión a internet. Por favor, reconecte e intente de nuevo.'
-                        })
-                        .then(function (result) {
-
-                            ionic.Platform.exitApp();
-                        });
-                }
-            }
-        }
+//        function checkConnection() {
+//            var networkState = navigator.connection.type;
+//
+//            var states = {};
+//            states[Connection.UNKNOWN] = 'Unknown connection';
+//            states[Connection.ETHERNET] = 'Ethernet connection';
+//            states[Connection.WIFI] = 'WiFi connection';
+//            states[Connection.CELL_2G] = 'Cell 2G connection';
+//            states[Connection.CELL_3G] = 'Cell 3G connection';
+//            states[Connection.CELL_4G] = 'Cell 4G connection';
+//            states[Connection.CELL] = 'Cell generic connection';
+//            states[Connection.NONE] = 'No network connection';
+//
+//            console.log('Connection type: ' + states[networkState]);
+//
+//
+//            if (window.localStorage.getItem("beforeState") != null) {
+//
+//                if (states[networkState] == window.localStorage.getItem("beforeState")) {
+//
+//                    checkConnection2();
+//
+//                } else {
+//                    window.localStorage.setItem("beforeState", states[networkState]);
+//
+//                    $interval.cancel(interval);
+//
+//                    $ionicPopup.alert({
+//                            title: 'La conexión a internet ha cambiado'
+//                            , content: 'Disculpe, se dectectó una conexión diferente. Por favor, abra nuevamente la aplicación.'
+//                        })
+//                        .then(function (result) {
+//
+//                            ionic.Platform.exitApp();
+//                        });
+//
+//                }
+//            } else {
+//                window.localStorage.setItem("beforeState", states[networkState]);
+//
+//                checkConnection2();
+//            }
+//
+//
+//        }
+//
+//        var interval = $interval(function () {
+//            checkConnection();
+//        }, 5000);
+//
+//
+//
+//        function checkConnection2() {
+//
+//            // Check for network connection
+//            if (window.Connection) {
+//                if (navigator.connection.type == Connection.NONE) {
+//                    $interval.cancel(interval);
+//
+//                    $ionicPopup.alert({
+//                            title: 'No hay conexión a internet'
+//                            , content: 'Disculpe, no se detectó conexión a internet. Por favor, reconecte e intente de nuevo.'
+//                        })
+//                        .then(function (result) {
+//
+//                            ionic.Platform.exitApp();
+//                        });
+//                }
+//            }
+//        }
 
 
 
         if (window.localStorage.getItem("username") !== null && window.localStorage.getItem("password") !== null) {
 
+            LoginService.VerificarClave($scope.oldPass, $scope.idCuenta).then(function (response) {
+            
+                if(response == false){
+                    
+                    
+                }
+            })
+            
             $scope.idCuenta = window.localStorage.getItem("username");
             $scope.password = window.localStorage.getItem("password");
 
@@ -704,15 +712,5 @@ angular.module('app.controllers', ['ionic'])
         });
 
     }
-
-})
-
-
-
-.controller('footerCtrl', function ($scope, LoginService, PushNotificationService, FuncionesGlobales, $ionicPopup, $ionicLoading, $cordovaDevice, $ionicPlatform, $state, $cordovaToast, $timeout, $http, $rootScope, $cordovaNetwork, $interval, $http) {
-
-    alert('entra');
-
-
 
 })
