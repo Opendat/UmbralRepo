@@ -243,7 +243,7 @@ angular.module('app.services', [])
                     , historyRoot: true
                 });
                 $state.go('conectarse');
-            }, 1000);
+            }, 1500);
         }
     };
 

@@ -1,7 +1,7 @@
 angular.module('app.controllers', ['ionic'])
 
 
-.controller('conectarseCtrl', function ($scope, LoginService, PushNotificationService, FuncionesGlobales, $ionicPopup, $ionicLoading, $cordovaDevice, $ionicPlatform, $state, $cordovaToast, $timeout, $http, $rootScope, $cordovaNetwork, $interval, $http) {
+.controller('conectarseCtrl', function ($scope, LoginService, PushNotificationService, FuncionesGlobales, $ionicPopup, $ionicLoading, $cordovaDevice, $ionicPlatform, $state, $cordovaToast, $timeout, $http, $rootScope, $cordovaNetwork, $interval, $http, $ionicHistory) {
 
     $ionicPlatform.ready(function () {
 
@@ -148,7 +148,7 @@ angular.module('app.controllers', ['ionic'])
     $scope.formData = {};
     // función para verificar la cuenta del usuario
     $scope.verificarCuenta = function () {
-        
+
         if ($scope.formData.idCuenta == null || $scope.formData.idCuenta == '') // si el campo es vacío
         {
             $ionicPopup.alert({
@@ -252,12 +252,12 @@ angular.module('app.controllers', ['ionic'])
 
     function onDeviceReady() {
 
-//        // Android customization
-//        cordova.plugins.backgroundMode.setDefaults({
-//            text: 'Doing heavy tasks.'
-//        });
-//        // Enable background mode
-//        cordova.plugins.backgroundMode.enable();
+        //        // Android customization
+        //        cordova.plugins.backgroundMode.setDefaults({
+        //            text: 'Doing heavy tasks.'
+        //        });
+        //        // Enable background mode
+        //        cordova.plugins.backgroundMode.enable();
 
         // Called when background mode has been activated
         //        cordova.plugins.backgroundMode.onactivate = function () {
@@ -288,89 +288,119 @@ angular.module('app.controllers', ['ionic'])
 
 
 
-//        function checkConnection() {
-//            var networkState = navigator.connection.type;
-//
-//            var states = {};
-//            states[Connection.UNKNOWN] = 'Unknown connection';
-//            states[Connection.ETHERNET] = 'Ethernet connection';
-//            states[Connection.WIFI] = 'WiFi connection';
-//            states[Connection.CELL_2G] = 'Cell 2G connection';
-//            states[Connection.CELL_3G] = 'Cell 3G connection';
-//            states[Connection.CELL_4G] = 'Cell 4G connection';
-//            states[Connection.CELL] = 'Cell generic connection';
-//            states[Connection.NONE] = 'No network connection';
-//
-//            console.log('Connection type: ' + states[networkState]);
-//
-//
-//            if (window.localStorage.getItem("beforeState") != null) {
-//
-//                if (states[networkState] == window.localStorage.getItem("beforeState")) {
-//
-//                    checkConnection2();
-//
-//                } else {
-//                    window.localStorage.setItem("beforeState", states[networkState]);
-//
-//                    $interval.cancel(interval);
-//
-//                    $ionicPopup.alert({
-//                            title: 'La conexión a internet ha cambiado'
-//                            , content: 'Disculpe, se dectectó una conexión diferente. Por favor, abra nuevamente la aplicación.'
-//                        })
-//                        .then(function (result) {
-//
-//                            ionic.Platform.exitApp();
-//                        });
-//
-//                }
-//            } else {
-//                window.localStorage.setItem("beforeState", states[networkState]);
-//
-//                checkConnection2();
-//            }
-//
-//
-//        }
-//
-//        var interval = $interval(function () {
-//            checkConnection();
-//        }, 5000);
-//
-//
-//
-//        function checkConnection2() {
-//
-//            // Check for network connection
-//            if (window.Connection) {
-//                if (navigator.connection.type == Connection.NONE) {
-//                    $interval.cancel(interval);
-//
-//                    $ionicPopup.alert({
-//                            title: 'No hay conexión a internet'
-//                            , content: 'Disculpe, no se detectó conexión a internet. Por favor, reconecte e intente de nuevo.'
-//                        })
-//                        .then(function (result) {
-//
-//                            ionic.Platform.exitApp();
-//                        });
-//                }
-//            }
-//        }
+        //        function checkConnection() {
+        //            var networkState = navigator.connection.type;
+        //
+        //            var states = {};
+        //            states[Connection.UNKNOWN] = 'Unknown connection';
+        //            states[Connection.ETHERNET] = 'Ethernet connection';
+        //            states[Connection.WIFI] = 'WiFi connection';
+        //            states[Connection.CELL_2G] = 'Cell 2G connection';
+        //            states[Connection.CELL_3G] = 'Cell 3G connection';
+        //            states[Connection.CELL_4G] = 'Cell 4G connection';
+        //            states[Connection.CELL] = 'Cell generic connection';
+        //            states[Connection.NONE] = 'No network connection';
+        //
+        //            console.log('Connection type: ' + states[networkState]);
+        //
+        //
+        //            if (window.localStorage.getItem("beforeState") != null) {
+        //
+        //                if (states[networkState] == window.localStorage.getItem("beforeState")) {
+        //
+        //                    checkConnection2();
+        //
+        //                } else {
+        //                    window.localStorage.setItem("beforeState", states[networkState]);
+        //
+        //                    $interval.cancel(interval);
+        //
+        //                    $ionicPopup.alert({
+        //                            title: 'La conexión a internet ha cambiado'
+        //                            , content: 'Disculpe, se dectectó una conexión diferente. Por favor, abra nuevamente la aplicación.'
+        //                        })
+        //                        .then(function (result) {
+        //
+        //                            ionic.Platform.exitApp();
+        //                        });
+        //
+        //                }
+        //            } else {
+        //                window.localStorage.setItem("beforeState", states[networkState]);
+        //
+        //                checkConnection2();
+        //            }
+        //
+        //
+        //        }
+        //
+        //        var interval = $interval(function () {
+        //            checkConnection();
+        //        }, 5000);
+        //
+        //
+        //
+        //        function checkConnection2() {
+        //
+        //            // Check for network connection
+        //            if (window.Connection) {
+        //                if (navigator.connection.type == Connection.NONE) {
+        //                    $interval.cancel(interval);
+        //
+        //                    $ionicPopup.alert({
+        //                            title: 'No hay conexión a internet'
+        //                            , content: 'Disculpe, no se detectó conexión a internet. Por favor, reconecte e intente de nuevo.'
+        //                        })
+        //                        .then(function (result) {
+        //
+        //                            ionic.Platform.exitApp();
+        //                        });
+        //                }
+        //            }
+        //        }
 
 
 
         if (window.localStorage.getItem("username") !== null && window.localStorage.getItem("password") !== null) {
 
-            LoginService.VerificarClave($scope.oldPass, $scope.idCuenta).then(function (response) {
+            var user = window.localStorage.getItem("username");
+            var pass = window.localStorage.getItem("password");
             
-                if(response == false){
-                    
-                    
+            LoginService.VerificarClave(pass, user).then(function (response) {
+
+                if (response == false) {
+
+                    $ionicLoading.show({
+                        template: 'Se ha detectado un cambio de contraseña...'
+                    });
+
+
+                    // se elimina del localstorage usuario y contraseñas si es que existen
+                    if (window.localStorage.getItem("username") != null) {
+                        window.localStorage.removeItem("username")
+                    }
+
+                    if (window.localStorage.getItem("password") != null) {
+                        window.localStorage.removeItem("password")
+                    }
+
+                    // se almacena el savelogin con show para indicar que debe mostrar mensaje al iniciar sesion
+                    window.localStorage.setItem("savelogin", "show");
+
+                    // timeout de 2 segundos que permite ocultar mensaje, limpiar cache e historial, etc
+                    setTimeout(function () {
+                        $ionicLoading.hide();
+                        $ionicHistory.clearCache();
+                        $ionicHistory.clearHistory();
+                        $ionicHistory.nextViewOptions({
+                            disableBack: true
+                            , historyRoot: true
+                        });
+                        $state.go('conectarse');
+                    }, 1500);
                 }
             })
-            
+
             $scope.idCuenta = window.localStorage.getItem("username");
             $scope.password = window.localStorage.getItem("password");
 
