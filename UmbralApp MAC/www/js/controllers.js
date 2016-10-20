@@ -365,7 +365,7 @@ angular.module('app.controllers', ['ionic'])
 
             var user = window.localStorage.getItem("username");
             var pass = window.localStorage.getItem("password");
-            
+
             LoginService.VerificarClave(pass, user).then(function (response) {
 
                 if (response == false) {

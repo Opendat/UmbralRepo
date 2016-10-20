@@ -101,8 +101,8 @@ angular.module('app.services', [])
                 rutPersona: rutPersona
                 , rutEmpresa: rutEmpresa
             });
-        },
-        GenerarSolicitudCuenta: function (IdPersona, RutEmpresa, Cuenta, Correo, Fono, PerfilID, Comentario) {
+        }
+        , GenerarSolicitudCuenta: function (IdPersona, RutEmpresa, Cuenta, Correo, Fono, PerfilID, Comentario) {
             return $soap.post(base_url, "U028A66", {
                 IdPersona: IdPersona
                 , RutEmpresa: RutEmpresa
@@ -112,11 +112,11 @@ angular.module('app.services', [])
                 , PerfilID: PerfilID
                 , Comentario: Comentario
             });
-        },
-        ObtenerPerfiles: function () {
+        }
+        , ObtenerPerfiles: function () {
             return $soap.post(base_url, "U028A67");
         }
-        
+
     }
 
 }])
@@ -256,13 +256,16 @@ angular.module('app.services', [])
         }
     };
 
-    root.openPopover = function ($scope, $ionicPopover) {
+    root.openPopover = function ($scope, $sce, $ionicPopover) {
         // funcion que se ejecuta cuando se hace click sobre el titulo de una notificacion
         $scope.openPopover = function ($event, titulo, detalle) {
 
+            
             $scope.title = titulo;
 
             $scope.content = detalle;
+            //$scope.content = "This a link: <a href='https://www.google.com'>Google</a> :)";
+            //$scope.geolocalizacion = "<span class='divhyperlink'><div style='color: blue' ng-click='gotomap(-23.654801,-70.3984263)'>GEOLOCALIZACION</div></span>";
 
             $ionicPopover.fromTemplateUrl('templates/popover.html', {
                 scope: $scope
@@ -275,6 +278,8 @@ angular.module('app.services', [])
         }
     };
 
+
+
     root.goHome = function ($scope, $state) {
         $scope.GoHome = function () {
             $state.go('misNotificaciones', {
@@ -282,7 +287,7 @@ angular.module('app.services', [])
             });
         }
     }
-    
+
     root.goLogin = function ($scope, $state) {
         $scope.GoLogin = function () {
             $state.go('conectarse');

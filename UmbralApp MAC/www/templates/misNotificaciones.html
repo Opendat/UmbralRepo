@@ -1,5 +1,5 @@
 <ion-view cache-view="false" style="" title="Mis Notificaciones" ng-controller="misNotificacionesCtrl">
-  
+
     <ion-side-menus>
         <ion-side-menu-content>
             <ion-header-bar class='bar-positive' align-title='center'>
@@ -46,10 +46,17 @@
             <ion-content>
                 <div class="popover-inner-content">
                     <div ng-controller="misNotificacionesCtrl">
-                        <p ng-bind-html="content"></p>
+                        <div bind-html-compile="content"></div><br/>
                     </div>
+                    
                 </div>
             </ion-content>
+            <ion-footer-bar align-title="center">
+                <h1 class="title"><div class="buttons" ng-click="imprimir(content)">
+                    <button class="button">Imprimir</button>
+                </div></h1>
+
+            </ion-footer-bar>
         </ion-popover-view>
     </script>
 

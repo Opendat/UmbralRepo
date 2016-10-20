@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('misNotificaciones.module').controller('misNotificacionesCtrl', function ($scope, PushNotificationService, MenuOpcionesFunction, MenuDinamicoService, $ionicLoading, $stateParams, $ionicHistory, $state, $ionicPopover, $ionicPopup, $ionicSideMenuDelegate, FuncionesGlobales) {
+angular.module('misNotificaciones.module').controller('misNotificacionesCtrl', function ($scope, PushNotificationService, MenuOpcionesFunction, MenuDinamicoService, $ionicLoading, $stateParams, $ionicHistory, $state, $ionicPopover, $ionicPopup, $ionicSideMenuDelegate, FuncionesGlobales, $cordovaPrinter, $sce) {
 
     $scope.notifications = [];
     $scope.noMoreItemsAvailable = false;
@@ -16,8 +16,8 @@ angular.module('misNotificaciones.module').controller('misNotificacionesCtrl', f
     });
 
 
-    FuncionesGlobales.openPopover($scope, $ionicPopover);
-    
+    FuncionesGlobales.openPopover($scope, $sce, $ionicPopover);
+
     FuncionesGlobales.toogleRight($scope, $state, $ionicSideMenuDelegate, MenuDinamicoService, PushNotificationService, $scope.idCuenta, $ionicLoading, MenuOpcionesFunction);
 
     FuncionesGlobales.cerrarSesion($scope, $ionicLoading, $ionicHistory, $state);
@@ -76,6 +76,46 @@ angular.module('misNotificaciones.module').controller('misNotificacionesCtrl', f
         $scope.cantidadNotificacionesRecientes = parseInt(window.localStorage.getItem("cantidadNotificacionesRecientes"));
     }
 
+    $scope.imprimir = function (pivote) {
+        if ($cordovaPrinter.isAvailable()) {
+
+            $cordovaPrinter.print(pivote);
+        } else {
+            alert("Printing is not available on device");
+        }
+    }
+
+    $scope.gotomap = function (latitud, longitud) {
+
+        launchnavigator.isAppAvailable(launchnavigator.APP.GOOGLE_MAPS, function (isAvailable) {
+            var app;
+            var transport;
+            if (isAvailable) {
+                app = launchnavigator.APP.GOOGLE_MAPS;
+                transport = launchnavigator.TRANSPORT_MODE.WALKING;
+            } else {
+                console.warn("Google Maps");
+                app = launchnavigator.APP.USER_SELECT;
+            }
+            
+            var coordenadas = latitud +","+ longitud;
+            launchnavigator.navigate([latitud, longitud], {
+                app: app,
+                transportMode: transport
+            });
+        });
+    }
+
     $ionicLoading.hide();
 
+})
+
+
+angular.module('misNotificaciones.module').filter('hrefToJS', function ($sce, $sanitize) {
+    return function (text) {
+        var regex = /href="([\S]+)"/g;
+        //var newString = $sanitize(text).replace(regex, "onClick=\"window.open('$1', '_blank', 'location=yes')\"");
+        var newString = $sanitize(text).replace(regex, "href onClick=\"window.open('$1', '_blank', 'location=yes');return false;\"");
+        return $sce.trustAsHtml(newString);
+    }
 })
