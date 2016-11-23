@@ -46,15 +46,19 @@
             <ion-content>
                 <div class="popover-inner-content">
                     <div ng-controller="misNotificacionesCtrl">
-                        <div bind-html-compile="content"></div><br/>
+                        <div bind-html-compile="content"></div>
+                        <br/>
                     </div>
-                    
+
                 </div>
             </ion-content>
             <ion-footer-bar align-title="center">
-                <h1 class="title"><div class="buttons" ng-click="imprimir(content)">
-                    <button class="button">Imprimir</button>
-                </div></h1>
+                <h1 class="title">
+                    <div class="buttons" ng-click="imprimir(content)">
+                        <button class="button">Imprimir</button>
+                    </div>
+                    
+                </h1>
 
             </ion-footer-bar>
         </ion-popover-view>

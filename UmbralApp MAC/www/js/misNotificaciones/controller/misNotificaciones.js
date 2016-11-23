@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('misNotificaciones.module').controller('misNotificacionesCtrl', function ($scope, PushNotificationService, MenuOpcionesFunction, MenuDinamicoService, $ionicLoading, $stateParams, $ionicHistory, $state, $ionicPopover, $ionicPopup, $ionicSideMenuDelegate, FuncionesGlobales, $cordovaPrinter, $sce) {
+angular.module('misNotificaciones.module').controller('misNotificacionesCtrl', function ($scope, PushNotificationService, MenuOpcionesFunction, MenuDinamicoService, $ionicLoading, $stateParams, $ionicHistory, $state, $ionicPopover, $ionicPopup, $ionicSideMenuDelegate, FuncionesGlobales, $cordovaPrinter, $sce, $injector) {
 
     $scope.notifications = [];
     $scope.noMoreItemsAvailable = false;
@@ -97,14 +97,72 @@ angular.module('misNotificaciones.module').controller('misNotificacionesCtrl', f
                 console.warn("Google Maps");
                 app = launchnavigator.APP.USER_SELECT;
             }
-            
-            var coordenadas = latitud +","+ longitud;
+
+            var coordenadas = latitud + "," + longitud;
             launchnavigator.navigate([latitud, longitud], {
-                app: app,
-                transportMode: transport
+                app: app
+                , transportMode: transport
             });
         });
     }
+
+//    $scope.enviarCorreo = function (title, mensaje) {
+//
+//        var string = mensaje.split('<br/>');
+//
+//        var destinatario = "";
+//        var evento = "";
+//        var fecha = "";
+//        //var datos;
+//        for (var i = 0; i < string.length; i++) {
+//
+//            if (string[i].indexOf('Correo') > -1) {
+//
+//                destinatario = string[i].split(':')[2].split('<')[0];
+//                //destinatario = destinatario.replace(/ /g,'');
+//
+//            }
+//            
+//            if(string[i].indexOf('Evento') > -1){
+//                evento = string[i].split(':')[1];
+//            }
+//            if(string[i].indexOf('Fecha') > -1){
+//                fecha = string[i].split(' ')[1];
+//                fecha = fecha + " " + string[i].split(' ')[2];
+//            }
+//
+////            if (string[i].indexOf('Nombre') > -1 || string[i].indexOf('Rut') > -1) {
+////
+////                datos =  datos + " " + string[i].split('>')[1].split('<')[0];
+////
+////            }
+////            
+////            if(string[i].indexOf('Ubicación') > -1){
+////                
+////            }
+//
+//        }
+//        //U02835C (EnviarCorreo)
+//        var fn = makeDynamicService5("http://www.opendat.cl/umbral_ws/U02835C.asmx", "U02835F");
+//
+//        var asunto = title + " " + evento + " " + fecha;
+//        
+//        $injector.instantiate(fn).run(destinatario, asunto, mensaje).then(function (resultado) {
+//
+//            if (resultado == "ok") {
+//                $ionicPopup.alert({
+//                    title: 'Correo enviado'
+//                    , template: 'Correo enviado correctamente.'
+//                });
+//            } else {
+//                $ionicPopup.alert({
+//                    title: 'Error de envío'
+//                    , template: 'Hubo un error al enviar el correo.'
+//                });
+//            }
+//
+//        });
+//    }
 
     $ionicLoading.hide();
 

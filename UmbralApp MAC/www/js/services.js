@@ -84,6 +84,12 @@ angular.module('app.services', [])
             return $soap.post(base_url, "U0270A6", {
                 idCuenta: idCuenta
             });
+        },
+
+        EnviarCorreo: function (pivote) {
+            return $soap.post(base_url, "U02835F", {
+                pivote: pivote
+            });
         }
 
     }
@@ -260,7 +266,7 @@ angular.module('app.services', [])
         // funcion que se ejecuta cuando se hace click sobre el titulo de una notificacion
         $scope.openPopover = function ($event, titulo, detalle) {
 
-            
+
             $scope.title = titulo;
 
             $scope.content = detalle;
