@@ -202,6 +202,7 @@ angular.module('app.services', [])
 }])
 
 
+
 .factory('FuncionesGlobales', function () {
     var root = {};
 
@@ -310,47 +311,114 @@ angular.module('app.services', [])
 
         //====================================================================================
         // carga menu dinamico lateral derecho desde el webservice correspondiente
-        MenuDinamicoService.GetMenuDinamico(idCuenta).then(function (opcionesArray) {
+        var username = 'umbral';
+        var password = '1234';
 
-            if (opcionesArray.length > 0) {
-                // algoritmo para crear menu dinamico, de menu y submenu
-                $scope.items = [];
-
-                var i = 0;
-                var j = 0;
-                var k = 0;
-                var l = 0;
-                while (i < opcionesArray.length) {
-                    $scope.subitems = [];
-                    l = 0;
-
-                    $scope.items[k] = {
-                        precedente: opcionesArray[i].PRECEDENTE
-                        , subitems: $scope.subitems
-                    };
-
-
-                    while (j < opcionesArray.length && opcionesArray[i].PRECEDENTE == opcionesArray[j].PRECEDENTE) {
-
-                        $scope.subitems[l] = {
-                            nombre: opcionesArray[j].ID_OPCION
-                            , webservice: opcionesArray[j].U027CBE
-                            , webmethod: opcionesArray[j].U027CBF
-                            , naturaleza: opcionesArray[j].U027CBC
-                            , estado: opcionesArray[j].U027CBD
-                        };
-                        j++;
-                        l++;
-                    }
-                    i = j;
-
-                    k++;
-                }
-
+        $.soap({
+            url: 'http://www.opendat.cl/umbral_ws/U0281CC.asmx'
+            , appendMethodToURL: false
+            , namespaceURL: 'http://tempuri.org/'
+            , error: function (SOAPResponse) {
+                // show error
             }
-
-            $ionicLoading.hide();
+            , HTTPHeaders: {
+                Authorization: 'Basic ' + btoa(username + ':' + password)
+            }
         });
+
+        $.soap({
+            method: 'U0281CD'
+            , data: {
+                idCuenta: idCuenta
+            }
+            , SOAPAction: 'http://tempuri.org/U0281CD'
+            , success: function (soapResponse) {
+
+
+                var opcionesArray = $(soapResponse.toString()).find("OpcionesCuenta");
+                
+                for (var i = 0; i < opcionesArray.length; i++) {
+                    
+                    // algoritmo para crear menu dinamico, de menu y submenu
+                        $scope.items = [];
+        
+                        var i = 0;
+                        var j = 0;
+                        var k = 0;
+                        var l = 0;
+                        while (i < opcionesArray.length) {
+                            $scope.subitems = [];
+                            l = 0;
+        
+                            $scope.items[k] = {
+                                precedente: $(opcionesArray[i]).find('PRECEDENTE').text()
+                                , subitems: $scope.subitems
+                            };
+        
+        
+                            while (j < opcionesArray.length && $(opcionesArray[i]).find('PRECEDENTE').text() == $(opcionesArray[j]).find('PRECEDENTE').text()) {
+        
+                                $scope.subitems[l] = {
+                                    nombre: $(opcionesArray[j]).find('ID_OPCION').text()
+                                    , webservice: $(opcionesArray[j]).find('U027CBE').text()
+                                    , webmethod: $(opcionesArray[j]).find('U027CBF').text()
+                                    , naturaleza: $(opcionesArray[j]).find('U027CBC').text()
+                                    , estado: $(opcionesArray[j]).find('U027CBD').text()
+                                };
+                                j++;
+                                l++;
+                            }
+                            i = j;
+        
+                            k++;
+                        }
+                }
+                $ionicLoading.hide();
+            }
+            
+        });
+
+        //        MenuDinamicoService.GetMenuDinamico(idCuenta).then(function (opcionesArray) {
+        //
+        //            if (opcionesArray.length > 0) {
+        //                // algoritmo para crear menu dinamico, de menu y submenu
+        //                $scope.items = [];
+        //
+        //                var i = 0;
+        //                var j = 0;
+        //                var k = 0;
+        //                var l = 0;
+        //                while (i < opcionesArray.length) {
+        //                    $scope.subitems = [];
+        //                    l = 0;
+        //
+        //                    $scope.items[k] = {
+        //                        precedente: opcionesArray[i].PRECEDENTE
+        //                        , subitems: $scope.subitems
+        //                    };
+        //
+        //
+        //                    while (j < opcionesArray.length && opcionesArray[i].PRECEDENTE == opcionesArray[j].PRECEDENTE) {
+        //
+        //                        $scope.subitems[l] = {
+        //                            nombre: opcionesArray[j].ID_OPCION
+        //                            , webservice: opcionesArray[j].U027CBE
+        //                            , webmethod: opcionesArray[j].U027CBF
+        //                            , naturaleza: opcionesArray[j].U027CBC
+        //                            , estado: opcionesArray[j].U027CBD
+        //                        };
+        //                        j++;
+        //                        l++;
+        //                    }
+        //                    i = j;
+        //
+        //                    k++;
+        //                }
+        //
+        //            }
+        //
+        //            $ionicLoading.hide();
+        //        });
 
 
         // permite mostrar y ocultar items en el menu dinamico derecho
