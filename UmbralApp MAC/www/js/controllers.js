@@ -162,62 +162,183 @@ angular.module('app.controllers', ['ionic'])
         });
 
 
-        //$scope.idCuenta = $scope.idCuenta.toUpperCase();
+        ////$scope.idCuenta = $scope.idCuenta.toUpperCase();
 
-        LoginService.VerificarCuenta($scope.formData.idCuenta).then(function (response) {
+        //        LoginService.VerificarCuenta($scope.formData.idCuenta).then(function (response) {
+        //
+        //                $scope.idPersona = response;
+        //                $ionicLoading.hide();
+        //
+        //                if (response != "Error de Autenticación") {
+        //                    if (response != "NoEncontrado") { // si encontró la cuenta
+        //                        if (response != "CuentaEmpresa") {
+        //                            $ionicLoading.show({
+        //                                template: 'Cargando...'
+        //                            });
+        //
+        //                            window.localStorage.setItem("username", $scope.formData.idCuenta); // se guarda la variable idPersona en almacenamiento local
+        //
+        //                            PushNotificationService.BuscarCliente($scope.idPersona, $scope.UUID, $scope.newInstanceID, $scope.formData.idCuenta).then(function (response) {
+        //                                $ionicLoading.hide();
+        //                            });
+        //
+        //                            LoginService.ObtenerEstadoCuenta($scope.formData.idCuenta).then(function (response) {
+        //                                $scope.estadoCuenta = response;
+        //
+        //                                // si es Activa (tabla cuenta) o si es Aprobada (tabla estado solicitud de cuentas)
+        //                                if ($scope.estadoCuenta == "Z0B9917" || $scope.estadoCuenta == "Z0B99B2") {
+        //                                    // si es, es porque la cuenta está habilitada para iniciar sesión y se redirecciona a la ventana correspondiente
+        //                                    $state.go('conectarse2', {
+        //                                        idCuenta: $scope.formData.idCuenta
+        //                                        , idPersona: $scope.idPersona
+        //                                    });
+        //                                } else {
+        //                                    // se notifica que debe activar la cuenta, una contraseña se le proporcionará y se redirecciona a que la cambie
+        //                                    $ionicPopup.alert({
+        //                                        title: 'Activar Cuenta'
+        //                                        , template: 'En unos momentos, se le proporcionará la contraseña para poder activar su cuenta'
+        //                                    });
+        //                                    $state.go('cambioDeClave', {
+        //                                        idCuenta: $scope.formData.idCuenta
+        //                                        , mensaje: $scope.mensaje
+        //                                    });
+        //                                }
+        //                                $scope.idCuenta = "";
+        //                                $scope.idPersona = "";
+        //                                $scope.estadoCuenta = "";
+        //                            });
+        //                        } else {
+        //                            $ionicPopup.alert({
+        //                                title: 'Cuenta incorrecta'
+        //                                , template: 'No puede utilizar para éste propósito, una cuenta tipo Empresa.'
+        //                            });
+        //                        }
+        //
+        //
+        //
+        //                    } else {
+        //
+        //                        $ionicPopup.alert({
+        //                            title: 'Cuenta no encontrada'
+        //                            , template: 'La cuenta ingresada no se ha encontrado. Vuelva a intentar.'
+        //                        });
+        //                    }
+        //                } else {
+        //                    $ionicPopup.alert({
+        //                        title: 'Error de Autenticación'
+        //                        , template: 'Error de Autenticación'
+        //                    });
+        //                }
+        //
+        //
+        //            }
+        //            , function (reponse) {
+        //                $ionicLoading.hide();
+        //
+        //                $ionicPopup.alert({
+        //                    title: 'Conexión no establecida'
+        //                    , template: 'La Conexión superó el tiempo de espera.'
+        //                });
+        //            });
 
-                $scope.idPersona = response;
+        var username = 'umbral';
+        var password = '1234';
+
+        $.soap({
+            url: 'http://www.opendat.cl/umbral_ws/U02709C.asmx'
+            , appendMethodToURL: false
+            , namespaceURL: 'http://tempuri.org/'
+            , error: function (SOAPResponse) {
+                // show error
+            }
+            , HTTPHeaders: {
+                Authorization: 'Basic ' + btoa(username + ':' + password)
+            }
+        });
+
+
+        $.soap({
+            method: 'U02709D'
+            , data: {
+                idCuenta: $scope.formData.idCuenta
+            }
+            , SOAPAction: 'http://tempuri.org/U02709D'
+            , success: function (soapResponse) {
+
                 $ionicLoading.hide();
+                
+                var response = $(soapResponse.toString()).find('U02709DResult').text();
+                $scope.idPersona = response;
+
+
 
                 if (response != "Error de Autenticación") {
                     if (response != "NoEncontrado") { // si encontró la cuenta
                         if (response != "CuentaEmpresa") {
+
                             $ionicLoading.show({
                                 template: 'Cargando...'
                             });
 
-                            window.localStorage.setItem("username", $scope.formData.idCuenta); // se guarda la variable idPersona en almacenamiento local
+                            window.localStorage.setItem("username", $scope.formData.idCuenta);
 
-                            PushNotificationService.BuscarCliente($scope.idPersona, $scope.UUID, $scope.newInstanceID, $scope.formData.idCuenta).then(function (response) {
-                                $ionicLoading.hide();
-                            });
 
-                            LoginService.ObtenerEstadoCuenta($scope.formData.idCuenta).then(function (response) {
-                                $scope.estadoCuenta = response;
+                            $.soap({
+                                method: 'U02709F'
+                                , data: {
+                                    idPersona: $scope.idPersona
+                                    , UUID: $scope.UUID
+                                    , newInstanceID: $scope.newInstanceID
+                                    , idCuenta: $scope.formData.idCuenta
+                                }
+                                , SOAPAction: 'http://tempuri.org/U02709F'
+                                , success: function (soapResponse) {
 
-                                // si es Activa (tabla cuenta) o si es Aprobada (tabla estado solicitud de cuentas)
-                                if ($scope.estadoCuenta == "Z0B9917" || $scope.estadoCuenta == "Z0B99B2") {
-                                    // si es, es porque la cuenta está habilitada para iniciar sesión y se redirecciona a la ventana correspondiente
-                                    $state.go('conectarse2', {
-                                        idCuenta: $scope.formData.idCuenta
-                                        , idPersona: $scope.idPersona
-                                    });
-                                } else {
-                                    // se notifica que debe activar la cuenta, una contraseña se le proporcionará y se redirecciona a que la cambie
-                                    $ionicPopup.alert({
-                                        title: 'Activar Cuenta'
-                                        , template: 'En unos momentos, se le proporcionará la contraseña para poder activar su cuenta'
-                                    });
-                                    $state.go('cambioDeClave', {
-                                        idCuenta: $scope.formData.idCuenta
-                                        , mensaje: $scope.mensaje
+                                    $ionicLoading.hide();
+
+                                    $.soap({
+                                        method: 'U02709E'
+                                        , data: {
+                                            idCuenta: $scope.formData.idCuenta
+                                        }
+                                        , SOAPAction: 'http://tempuri.org/U02709E'
+                                        , success: function (soapResponse) {
+
+                                            var response = $(soapResponse.toString()).find('U02709EResult').text();
+                                            $scope.estadoCuenta = response;
+                                            // si es Activa (tabla cuenta) o si es Aprobada (tabla estado solicitud de cuentas)
+                                            if ($scope.estadoCuenta == "Z0B9917" || $scope.estadoCuenta == "Z0B99B2") {
+                                                // si es, es porque la cuenta está habilitada para iniciar sesión y se redirecciona a la ventana correspondiente
+                                                $state.go('conectarse2', {
+                                                    idCuenta: $scope.formData.idCuenta
+                                                    , idPersona: $scope.idPersona
+                                                });
+                                            } else {
+                                                // se notifica que debe activar la cuenta, una contraseña se le proporcionará y se redirecciona a que la cambie
+                                                $ionicPopup.alert({
+                                                    title: 'Activar Cuenta'
+                                                    , template: 'En unos momentos, se le proporcionará la contraseña para poder activar su cuenta'
+                                                });
+                                                $state.go('cambioDeClave', {
+                                                    idCuenta: $scope.formData.idCuenta
+                                                    , mensaje: $scope.mensaje
+                                                });
+                                            }
+                                            $scope.idCuenta = "";
+                                            $scope.idPersona = "";
+                                            $scope.estadoCuenta = "";
+                                        }
                                     });
                                 }
-                                $scope.idCuenta = "";
-                                $scope.idPersona = "";
-                                $scope.estadoCuenta = "";
                             });
+
                         } else {
                             $ionicPopup.alert({
                                 title: 'Cuenta incorrecta'
                                 , template: 'No puede utilizar para éste propósito, una cuenta tipo Empresa.'
                             });
                         }
-
-
-
                     } else {
-
                         $ionicPopup.alert({
                             title: 'Cuenta no encontrada'
                             , template: 'La cuenta ingresada no se ha encontrado. Vuelva a intentar.'
@@ -230,16 +351,8 @@ angular.module('app.controllers', ['ionic'])
                     });
                 }
 
-
             }
-            , function (reponse) {
-                $ionicLoading.hide();
-
-                $ionicPopup.alert({
-                    title: 'Conexión no establecida'
-                    , template: 'La Conexión superó el tiempo de espera.'
-                });
-            });
+        });
 
 
     }
