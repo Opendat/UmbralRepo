@@ -4,27 +4,37 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' gap://ready file://* *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+
+<!--    <meta http-equiv="Content-Security-Policy" content="default-src 'self' gap://ready file://* *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">-->
+
+<!--    <meta http-equiv="Content-Security-Policy" content="default-src 'self' gap://ready file://* *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">-->
+    
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' gap://ready file://* *; script-src 'self' 'unsafe-inline' 'unsafe-eval' *; style-src	'self' 'unsafe-inline' *; img-src 'self' data: *">
+    
+
     <title></title>
 
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <script src="lib/ionic/js/ionic.bundle.js"></script>
     <script src="lib/ionic-platform-web-client/dist/ionic.io.bundle.min.js"></script>
 
+    <script type='text/javascript' src='http://code.jquery.com/jquery-1.10.2.js'></script>
+    <script type='text/javascript' src='https://rawgit.com/doedje/jquery.soap/master/jquery.soap.js'></script>
+
     <!-- cordova script (this will be a 404 during development) -->
     <script src="lib/ngCordova/dist/ng-cordova.js"></script>
     <!-- Cordova is bootstrapped by ionic-platform-web-client, uncomment this if you remove ionic-platform-web-client... -->
-<!-- <script src="cordova.js"></script> -->
-    
+    <!-- <script src="cordova.js"></script> -->
+
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
     -->
 
     <script src="lib/angular-bind-html-compile/angular-bind-html-compile.js"></script>
-    
+
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
-<!--    <script src="js/routes.js"></script>-->
+    <!--    <script src="js/routes.js"></script>-->
     <script src="js/services.js"></script>
     <script src="js/directives.js"></script>
 
@@ -34,28 +44,28 @@
 
     <link href="css/style.css" rel="stylesheet">
     <link href="css/animate.css" rel="stylesheet">
-    
+
     <!-- module js -->
     <script src="js/misNotificaciones/misNotificaciones.module.js"></script>
     <script src="js/misNotificaciones/config.js"></script>
     <script src="js/misNotificaciones/controller/misNotificaciones.js"></script>
-    
+
     <script src="js/appMantencion/appMantencion.module.js"></script>
     <script src="js/appMantencion/config.js"></script>
     <script src="js/appMantencion/controller/appMantencion.js"></script>
-    
+
     <script src="js/appFormulario/appFormulario.module.js"></script>
     <script src="js/appFormulario/config.js"></script>
     <script src="js/appFormulario/controller/appFormulario.js"></script>
-    
+
     <script src="js/appMarcaAsistencia/appMarcaAsistencia.module.js"></script>
     <script src="js/appMarcaAsistencia/config.js"></script>
     <script src="js/appMarcaAsistencia/controller/appMarcaAsistencia.js"></script>
-    
+
     <script src="js/appPanel/appPanel.module.js"></script>
     <script src="js/appPanel/config.js"></script>
     <script src="js/appPanel/controller/appPanel.js"></script>
-    
+
     <script src="js/appPlantilla/appPlantilla.module.js"></script>
     <script src="js/appPlantilla/config.js"></script>
     <script src="js/appPlantilla/controller/appPlantilla.js"></script>
